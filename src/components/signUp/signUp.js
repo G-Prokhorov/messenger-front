@@ -70,7 +70,7 @@ export default function SignUp() {
                 } else if (data.password.length > 30) {
                     changeErr("err2", "cannot be more than 30 characters", true);
                 } else if (data.password.includes('--')) {
-                    changeErr("err2", "cannot contain '--'", true);
+                    changeErr("err2", "cannot contain '--' or '`'", true);
                 } else {
                     changeErr("err2", "ok", false);
                 }
