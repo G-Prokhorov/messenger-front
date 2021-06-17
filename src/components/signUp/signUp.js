@@ -6,24 +6,23 @@ import "./style.css";
 import logo from "../img/logo.png";
 
 export default function SignUp() {
-    const [disabled, setDisabled] = useState(true);
     const [err, setErr] = useState({
         err1: {
-            text: "e",
+            text: "",
             show: false,
         },
         err2: {
-            text: "e",
+            text: "",
             show: false,
         },
         err3: {
-            text: "e",
+            text: "",
             show: false,
         },
     });
 
     const [data, setData] = useState({
-        email: "",
+        username: "",
         password: "",
         confirm: "",
     });
@@ -49,18 +48,18 @@ export default function SignUp() {
         });
     }
 
-    const validateEmail = (email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
+    const validateUsername = (username) => {
+        let re = new RegExp("^[a-zA-Z0-9_.-]*$");
+        return re.test(String(username));
     }
 
     const validation = (event) => {
         switch (event.target.id) {
-            case "email":
-                if(validateEmail(data.email)) {
+            case "username":
+                if (validateUsername(data.username)) {
                     changeErr("err1", "ok", false);
                 } else {
-                    changeErr("err1", "your email is not valid", true);
+                    changeErr("err1", "can only include of the alphabets characters, number, -, _ and .", true);
                 }
 
                 break;
@@ -69,8 +68,8 @@ export default function SignUp() {
                     changeErr("err2", "must be more than 6 characters", true);
                 } else if (data.password.length > 30) {
                     changeErr("err2", "cannot be more than 30 characters", true);
-                } else if (data.password.includes('--')) {
-                    changeErr("err2", "cannot contain '--' or '`'", true);
+                } else if (data.password.includes("'") || data.password.includes('"') || data.password.includes("`")) {
+                    changeErr("err2", "cannot contain '`'", true);
                 } else {
                     changeErr("err2", "ok", false);
                 }
@@ -92,22 +91,33 @@ export default function SignUp() {
             <img width="70" height="70" className="logo" src={logo} alt="logo"/>
             <h1>Sign Up</h1>
             <div className="inputBox">
-                <label form="email">Email</label>
-                <input id="email" onChange={handleChange} onBlur={validation} autoComplete="off"
-                       type="email" value={data.email}/>
-                <p className="err" style={{opacity: err.err1.show ? 1 : 0}}>{err.err1.text}</p>
+                <label form="username">Username</label>
+                <input id="username" onChange={handleChange} onBlur={validation} autoComplete="off"
+                       type="username" value={data.username}/>
+                <p className="err" style={{
+                    opacity: err.err1.show ? 1 : 0,
+                    display: err.err1.show ? "block" : "none"
+                }}>{err.err1.text}</p>
             </div>
             <div className="inputBox">
                 <label form="password">Password</label>
                 <input id="password" onChange={handleChange} onBlur={validation} type="password" value={data.password}/>
-                <p className="err" style={{opacity: err.err2.show ? 1 : 0}}>{err.err2.text}</p>
+                <p className="err" style={{
+                    opacity: err.err2.show ? 1 : 0,
+                    display: err.err2.show ? "block" : "none"
+                }}>{err.err2.text}</p>
             </div>
             <div className="inputBox">
                 <label form="confirm">Confirm</label>
                 <input id="confirm" onChange={handleChange} onBlur={validation} type="password" value={data.confirm}/>
-                <p className="err" style={{opacity: err.err3.show ? 1 : 0}}>{err.err3.text}</p>
+                <p className="err" style={{
+                    opacity: err.err3.show ? 1 : 0,
+                    display: err.err3.show ? "block" : "none"
+                }}>{err.err3.text}</p>
             </div>
-            <button className="submit" disabled={!(err.err1.text === "ok" && err.err2.text === "ok" && err.err3.text === "ok")}>SIGN UP</button>
+            <button className="submit"
+                    disabled={!(err.err1.text === "ok" && err.err2.text === "ok" && err.err3.text === "ok")}>SIGN UP
+            </button>
         </div>
     </main>
 }
