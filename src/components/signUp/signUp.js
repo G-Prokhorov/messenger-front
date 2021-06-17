@@ -70,10 +70,11 @@ export default function SignUp() {
                 if (!validateUsername(data.username)) {
                     changeErr("err1", "can only include of the alphabets characters, number, -, _ and .", true);
                 } else {
-                    let result = await Axios.get("localhost:5000/checkUser?username=" + data.username);
-                    if (result.status === 200) {
+                    let result = await Axios.get("http://localhost:5000/checkUser?username=" + data.username);
+                    console.log(result.data)
+                    if (result.data === "clear") {
                         changeErr("err1", "ok", false);
-                    } else if (result.status === 409) {
+                    } else if (result.data === "exist") {
                         changeErr("err1", "user already exist", true);
                     } else {
                         changeErr("err1", "incomprehensible error", true);
@@ -109,6 +110,7 @@ export default function SignUp() {
                 <label form="username">Username</label>
                 <input id="username" onChange={handleChange} onBlur={validation} autoComplete="off"
                        type="username" value={data.username}/>
+                <span id="a">@</span>
                 <p className="err" style={{
                     opacity: err.err1.show ? 1 : 0,
                     display: err.err1.show ? "block" : "none"
