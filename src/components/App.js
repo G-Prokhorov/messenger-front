@@ -1,7 +1,7 @@
 import React from "react";
 
 import './globalstyle.css';
-import SignUp from "./signUp/signUp.js";
+import SignUp from "./signUp&login/signUp.js";
 
 function App() {
 
