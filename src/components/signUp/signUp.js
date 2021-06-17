@@ -4,6 +4,7 @@ import "../loginStyle.css";
 import "./style.css";
 
 import logo from "../img/logo.png";
+import Axios from "axios";
 
 export default function SignUp() {
     const [err, setErr] = useState({
@@ -28,6 +29,16 @@ export default function SignUp() {
     });
 
     const handleChange = (event) => {
+        if (event.target.id === "username" && event.target.value.length > 50) {
+            changeErr("err1", "cannot be more than 50 characters", true);
+            return;
+        }
+
+        if ((event.target.id === "password" || event.target.id === "confirm") && event.target.value.length > 30) {
+            changeErr("err2", "cannot be more than 30 characters", true);
+            return;
+        }
+
         setData((prev) => {
             return {
                 ...prev,
@@ -53,21 +64,25 @@ export default function SignUp() {
         return re.test(String(username));
     }
 
-    const validation = (event) => {
+    const validation = async (event) => {
         switch (event.target.id) {
             case "username":
-                if (validateUsername(data.username)) {
-                    changeErr("err1", "ok", false);
-                } else {
+                if (!validateUsername(data.username)) {
                     changeErr("err1", "can only include of the alphabets characters, number, -, _ and .", true);
+                } else {
+                    let result = await Axios.get("localhost:5000/checkUser?username=" + data.username);
+                    if (result.status === 200) {
+                        changeErr("err1", "ok", false);
+                    } else if (result.status === 409) {
+                        changeErr("err1", "user already exist", true);
+                    } else {
+                        changeErr("err1", "incomprehensible error", true);
+                    }
                 }
-
                 break;
             case "password":
                 if (data.password.length < 6) {
                     changeErr("err2", "must be more than 6 characters", true);
-                } else if (data.password.length > 30) {
-                    changeErr("err2", "cannot be more than 30 characters", true);
                 } else if (data.password.includes("'") || data.password.includes('"') || data.password.includes("`")) {
                     changeErr("err2", "cannot contain '`'", true);
                 } else {

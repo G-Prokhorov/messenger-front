@@ -1,9 +1,10 @@
 const path = require("path");
 const plugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+require("babel-polyfill");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: ["babel-polyfill", "./src/index.js"],
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "index_dev.js"
