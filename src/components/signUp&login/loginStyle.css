@@ -129,6 +129,19 @@ input:focus {
     height: 32px;
 }
 
+.question {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 18px;
+}
+
+.question > a {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.question > a:visited {
+    color: rgba(255, 255, 255, 0.75);
+}
+
 @media screen and (max-width: 700px) {
     .form {
         width: 100%;
