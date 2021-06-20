@@ -27,12 +27,11 @@ export default function Login() {
         try {
             let result = await axios.post("http://localhost:5000/login", {
                 username: data.username,
-                password: data.password,
+                password: data.password
             }, {
                 withCredentials: true,
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 }
             });
 

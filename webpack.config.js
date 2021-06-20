@@ -4,7 +4,7 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 require("babel-polyfill");
 
 module.exports = {
-    entry: ["babel-polyfill", "./src/index.js"],
+    entry: ["babel-polyfill", "./src/index.ts"],
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "index_dev.js"
