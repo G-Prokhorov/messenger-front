@@ -46,7 +46,7 @@ export default function Login() {
     return <main className="loginPage">
         <div className="form">
             <img width="70" height="70" className="logo" src={logo} alt="logo"/>
-            <h1>Sign Up</h1>
+            <h1>Log In</h1>
             <div className="inputBox">
                 <label form="username">Username</label>
                 <input id="username" onChange={handleChange} autoComplete="off"
