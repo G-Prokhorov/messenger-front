@@ -1,0 +1,107 @@
+.box {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box > main {
+    max-width: 100%;
+    min-width: 70%;
+    width: 1000px;
+    min-height: 720px;
+    height: 80vh;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 35% 65%;
+}
+
+header {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    border-bottom: rgba(255, 255, 255, 0.15) solid 1px;
+}
+
+.chats {
+    border-right: rgba(255, 255, 255, 0.15) solid 1px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.contact {
+    height: 100px;
+    box-sizing: border-box;
+    padding: 15px;
+    transition: background 0.1s ease-in-out;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+    flex-shrink: 0;
+    background: linear-gradient(122deg, rgba(185,20,149,1) 0%, rgba(3,29,63,1) 100%);
+    border-radius: 50%;
+    font-size: 40px;
+    color: #FFFFFF;
+    font-weight: 1000;
+}
+
+.avatar > p {
+    transform: translateX(-2px);
+}
+
+.chatInfo {
+    height: 80px;
+    margin-left: 25px;
+    box-sizing: border-box;
+    padding: 10px 0;
+    flex-grow: 1;
+    position: relative;
+}
+
+h2, h1 {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.chatInfo > h2 {
+    margin-bottom: 10px;
+}
+
+.chatInfo > p {
+    color: rgba(255, 255, 255, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.contact:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+header {
+    box-sizing: border-box;
+    padding-right:30px;
+}
+
+.profile {
+    width: 190px;
+}
+
+.list {
+    height: 100px;
+    width: 100px;
+    border-right: rgba(255, 255, 255, 0.15) solid 1px;
+    display: inline-flex;
+}
+
+.logo {
+    margin: 0 15px;
+}
