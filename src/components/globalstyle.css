@@ -40,3 +40,28 @@ html {
     align-items: center;
     justify-content: center;
 }
+
+input {
+    outline: none;
+    border: none;
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+
+::-webkit-scrollbar-track {
+    background:transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar {
+    width: 6px !important;
+    height: 0 !important;
+}
