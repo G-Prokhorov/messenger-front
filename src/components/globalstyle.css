@@ -28,3 +28,15 @@ html {
     background: #000000 url("./img/back.png") no-repeat center center;
     background-size: cover;
 }
+
+.center-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.center-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
