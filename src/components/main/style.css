@@ -16,6 +16,7 @@
     display: grid;
     grid-template-rows: 100px 1fr;
     grid-template-columns: 35% 65%;
+    overflow: hidden;
 }
 
 header {
@@ -88,7 +89,11 @@ h2, h1 {
 
 header {
     box-sizing: border-box;
-    padding-right:30px;
+    padding: 0 30px 0 100px;
+}
+
+header:first-child {
+    position: relative;
 }
 
 .profile {
@@ -96,12 +101,35 @@ header {
 }
 
 .list {
-    height: 100px;
+    height: 98px;
     width: 100px;
     border-right: rgba(255, 255, 255, 0.15) solid 1px;
     display: inline-flex;
+    position: absolute;
+    left: 0;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    box-sizing: border-box;
+    transition: width 0.3s ease-in-out, jusstify-content 0.2s ease-in-out, padding 0.25s ease-in-out;
 }
 
 .logo {
     margin: 0 15px;
+}
+
+.list > svg {
+    transition: transform 0.3s ease-in-out;
+}
+
+.list > a {
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in, opacity 0.1s ease-out;
+}
+
+.list > .red {
+    color: rgba(255, 0, 0, 0.7);
 }

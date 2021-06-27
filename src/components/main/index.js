@@ -12,10 +12,6 @@ import Chat from "./chat";
 export default function Main() {
     withAuth();
 
-    let logout = async () => {
-        await axios.get("http://localhost:5000/logout", {withCredentials: true});
-    }
-
     return <div className="box">
         <main>
             <Header />
