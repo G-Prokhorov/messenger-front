@@ -7,7 +7,7 @@ export default function withAuth() {
     const history = useHistory();
     return useEffect(async () => {
         try {
-            let res = await axios.get("http://localhost:5000/checkTokens", {
+            let res = await axios.get("http://localhost:5050/checkTokens", {
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',

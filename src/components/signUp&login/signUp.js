@@ -4,7 +4,7 @@ import "./loginStyle.css";
 import "./style.css";
 
 import logo from "../img/logo.png";
-import Axios from "axios";
+import axios from "axios";
 
 export default function SignUp() {
     const [err, setErr] = useState({
@@ -29,13 +29,13 @@ export default function SignUp() {
     });
 
     const handleChange = (event) => {
-        if (event.target.id === "username" && event.target.value.length > 50) {
-            changeErr("err1", "cannot be more than 50 characters", true);
+        if (event.target.id === "username" && event.target.value.length > 30) {
+            changeErr("err1", "cannot be more than 30 characters", true);
             return;
         }
 
-        if ((event.target.id === "password" || event.target.id === "confirm") && event.target.value.length > 30) {
-            changeErr("err2", "cannot be more than 30 characters", true);
+        if ((event.target.id === "password" || event.target.id === "confirm") && event.target.value.length > 50) {
+            changeErr("err2", "cannot be more than 50 characters", true);
             return;
         }
 
@@ -63,6 +63,26 @@ export default function SignUp() {
         let re = new RegExp("^[a-zA-Z0-9_.-]*$");
         return re.test(String(username));
     }
+    const handleSubmit = async () => {
+        try {
+            let result = await axios.post("http://localhost:5050/register", {
+                username: data.username,
+                password: data.password,
+                confirm: data.confirm,
+            }, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (result.status === 200) {
+                history.push("/");
+            }
+        } catch (e) {
+            console.error("error, " + e);
+        }
+    }
 
     const validation = async (event) => {
         switch (event.target.id) {
@@ -70,8 +90,7 @@ export default function SignUp() {
                 if (!validateUsername(data.username)) {
                     changeErr("err1", "can only include of the alphabets characters, number, -, _ and .", true);
                 } else {
-                    let result = await Axios.get("http://localhost:5000/checkUser?username=" + data.username);
-                    console.log(result.data)
+                    let result = await axios.get("http://localhost:5050/checkUser?username=" + data.username);
                     if (result.data === "clear") {
                         changeErr("err1", "ok", false);
                     } else if (result.data === "exist") {
@@ -132,7 +151,7 @@ export default function SignUp() {
                     display: err.err3.show ? "block" : "none"
                 }}>{err.err3.text}</p>
             </div>
-            <button className="submit"
+            <button className="submit" onClick={handleSubmit}
                     disabled={!(err.err1.text === "ok" && err.err2.text === "ok" && err.err3.text === "ok")}>SIGN UP
             </button>
         </div>
