@@ -14,22 +14,24 @@ export default function Chat() {
     }
 
     return <div id="chat">
-        <div id="messages">
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="right" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="right" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="right" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="right" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="right" text="admaskdnajkndjkasndjk" />
-            <Message float="left" text="admaskdnajkndjkasndjk" />
-            <Message float="right" text="admaskdnajkndjkasndjk" />
+        <div id="messagesScroll">
+            <div id="messages">
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="right" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="right" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="right" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="right" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="right" text="admaskdnajkndjkasndjk" />
+                <Message float="left" text="admaskdnajkndjkasndjk" />
+                <Message float="right" text="admaskdnajkndjkasndjk" />
+            </div>
         </div>
         <div className="inputDiv center-center">
             <input onChange={handleChange} value={text} type="text" id="messageText" />

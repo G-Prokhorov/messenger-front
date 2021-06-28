@@ -193,12 +193,16 @@ header:first-child {
     float: right;
 }
 
+#messagesScroll {
+    overflow-y: scroll !important;
+    box-sizing: border-box;
+    padding-right: 6px;
+}
+
 #messages {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    overflow-y: scroll !important;
-    max-height: 100%;
 }
 
 @media screen and (max-width: 900px) {
