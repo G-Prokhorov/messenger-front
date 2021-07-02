@@ -16,6 +16,6 @@ export function asyncSetChats() {
                 'Content-Type': 'application/json',
             },
         });
-        dispatch(setChats(chats));
+        dispatch(setChats(chats.data));
     }
 }

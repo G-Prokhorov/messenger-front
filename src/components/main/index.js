@@ -8,19 +8,16 @@ import logo from "../img/logo.png";
 import Contact from "./contact";
 import Header from "./header";
 import Chat from "./chat";
+import ChatsList from "./chatsList";
 
 export default function Main() {
     withAuth();
 
     return <div className="box">
         <main>
-            <Header />
-            <div className="chats">
-                <Contact name={"Gregory"} message={"last message last message last message last message"}/>
-                <Contact name={"Gregory"} message={"last message last message last message last message"}/>
-                <Contact name={"Gregory"} message={"last message last message last message last message"}/>
-            </div>
-            <Chat />
+            <Header/>
+            <ChatsList/>
+            <Chat/>
         </main>
     </div>
 }
