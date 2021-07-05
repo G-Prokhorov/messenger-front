@@ -98,6 +98,9 @@ header:first-child {
 
 .profile {
     width: 190px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .list {

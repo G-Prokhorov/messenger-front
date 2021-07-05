@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import logo from "../img/logo.png";
 import axios from "axios";
-import {useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export default function Header() {
     const [click, setClick] = useState(false);
+    const user = useSelector((state) => state.user);
 
     const handleClick = () => {
         setClick(!click);
@@ -36,10 +37,10 @@ export default function Header() {
             <img width="50" height="50" className="logo" src={logo} alt="logo"/>
             <h1>Message</h1>
         </div>
-        <div className="profile center-between">
-            <h2>Gregory</h2>
+        <div className="profile">
+            <h2 style={{marginRight: "15px"}}>{user.name}</h2>
             <div className="avatar">
-                <p>G</p>
+                <p>{user.name[0]}</p>
             </div>
         </div>
     </header>
