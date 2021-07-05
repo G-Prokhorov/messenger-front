@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Message from "./message";
 import {useDispatch, useSelector} from "react-redux";
-import {setMessage} from "../store/actions/message_A";
+import {setMessage, updateMessage} from "../store/actions/message_A";
 import axios from "axios";
 import connect from "../ws";
+import getMessage from "./chat/getMessage";
 
 export default function Chat() {
     const [text, setText] = useState("");
@@ -15,6 +16,7 @@ export default function Chat() {
 
     const handleClick = async () => {
         if (state.currentChat) {
+            dispatch(updateMessage(state.currentChat, text, state.user.username));
             setMesArr((prev) => [...prev, text]);
             setText("");
         }
@@ -23,6 +25,15 @@ export default function Chat() {
     const handleChange = (event) => {
         setText(event.target.value);
     }
+
+    const AlwaysScrollToBottom = () => {
+        const elementRef = useRef();
+        useEffect(() => {
+            document.querySelector("#messagesScroll").style.scrollBehavior = "unset";
+            elementRef.current.scrollIntoView();
+        }, []);
+        return <div ref={elementRef}/>;
+    };
 
     useEffect(() => {
         connect(setSocket);
@@ -53,21 +64,19 @@ export default function Chat() {
     useEffect(async () => {
         if (state.currentChat) {
             if (!state.messages.has(state.currentChat)) {
-                let message = await axios.post("http://localhost:5050/getMessage", {
-                    chatId: state.currentChat,
-                    start: '0',
-                }, {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
+                let message = await getMessage(state.currentChat);
                 dispatch(setMessage(state.currentChat, message.data.reverse()));
             }
 
-            setMessages(state.messages.get(state.currentChat))
+            setMessages(state.messages.get(state.currentChat));
         }
     }, [state.currentChat]);
+
+    useEffect(() => {
+        if (state.messages.has(state.currentChat)) {
+            setMessages(state.messages.get(state.currentChat));
+        }
+    }, [mesArr]);
 
     return <div id="chat">
         <div id="messagesScroll">
@@ -79,6 +88,7 @@ export default function Chat() {
                     }
                     return <Message key={key} float={float} text={message.message}/>
                 })}
+                <AlwaysScrollToBottom/>
             </div>
         </div>
         <div className="inputDiv center-center">
