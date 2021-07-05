@@ -16,7 +16,7 @@ export default function Contact(props) {
             <p>{props.name[0].toUpperCase()}</p>
         </div>
         <div className="chatInfo">
-            <h2>{props.name}</h2>
+            <h2 className="center-center">{props.name} <span className="unread" style={{display: props.number === 0 ? "none" : "inline-block"}}>{props.number}</span> </h2>
             <p>{props.message}</p>
         </div>
     </div>

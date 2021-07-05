@@ -71,6 +71,7 @@ h2, h1 {
 
 .chatInfo > h2 {
     margin-bottom: 10px;
+    justify-content: flex-start;
 }
 
 .chatInfo > p {
@@ -209,6 +210,18 @@ header:first-child {
     box-sizing: border-box;
     padding-top: 40px;
     min-height: 100%;
+}
+
+.unread {
+    display: inline-block;
+    text-align: center;
+    line-height: 22px;
+    font-size: 14px;
+    border-radius: 50%;
+    background: rgba(185, 20, 149, 0.3);
+    width: 22px;
+    height: 22px;
+    margin-left: 8px;
 }
 
 @media screen and (max-width: 900px) {
