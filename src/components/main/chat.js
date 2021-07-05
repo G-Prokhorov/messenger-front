@@ -31,7 +31,7 @@ export default function Chat() {
                         'Content-Type': 'application/json',
                     }
                 });
-                dispatch(setMessage(state.currentChat, message.data));
+                dispatch(setMessage(state.currentChat, message.data.reverse()));
             }
 
             setMessages(state.messages.get(state.currentChat))
@@ -42,7 +42,11 @@ export default function Chat() {
         <div id="messagesScroll">
             <div id="messages">
                 {messages.map((message, key) => {
-                    return <Message key={key} float="left" text={message.message}/>
+                    let float = "left";
+                    if (state.user.username === message.user.username) {
+                        float = "right";
+                    }
+                    return <Message key={key} float={float} text={message.message}/>
                 })}
             </div>
         </div>
