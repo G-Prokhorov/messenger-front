@@ -84,7 +84,7 @@ h2, h1 {
 }
 
 .contact:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.08) !important;
 }
 
 header {
@@ -203,6 +203,8 @@ header:first-child {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    box-sizing: border-box;
+    padding-top: 40px;
 }
 
 @media screen and (max-width: 900px) {
