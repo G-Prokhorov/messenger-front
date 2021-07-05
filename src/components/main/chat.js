@@ -3,21 +3,52 @@ import Message from "./message";
 import {useDispatch, useSelector} from "react-redux";
 import {setMessage} from "../store/actions/message_A";
 import axios from "axios";
+import connect from "../ws";
 
 export default function Chat() {
     const [text, setText] = useState("");
     const [messages, setMessages] = useState([]);
-    const state = useSelector((state) => state)
+    const [socket, setSocket] = useState(null);
+    const [mesArr, setMesArr] = useState([]);
+    const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
-    const handleClick = () => {
-        console.log(text);
-        setText("");
+    const handleClick = async () => {
+        if (state.currentChat) {
+            setMesArr((prev) => [...prev, text]);
+            setText("");
+        }
     }
 
     const handleChange = (event) => {
         setText(event.target.value);
     }
+
+    useEffect(() => {
+        connect(setSocket);
+
+        return () => {
+            socket.close();
+            setSocket(null);
+        };
+    }, []);
+
+    let send = false;
+    useEffect(() => {
+        if (socket !== null && !send) {
+            send = true;
+            let copy = mesArr;
+            mesArr.forEach(async (message) => {
+                await socket.send(JSON.stringify({
+                    chatId: state.currentChat,
+                    message: message,
+                }));
+                copy.shift();
+            });
+            setMesArr(copy);
+            send = false;
+        }
+    }, [mesArr, socket]);
 
     useEffect(async () => {
         if (state.currentChat) {
