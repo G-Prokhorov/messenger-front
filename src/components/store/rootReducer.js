@@ -6,5 +6,5 @@ import message_R from "./reducers/message_R";
 export const rootReducer = combineReducers({
     chats: chats_R,
     currentChat: currentChat_R,
-    message: message_R,
+    messages: message_R,
 });

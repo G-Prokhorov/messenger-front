@@ -205,6 +205,7 @@ header:first-child {
     justify-content: flex-end;
     box-sizing: border-box;
     padding-top: 40px;
+    min-height: 100%;
 }
 
 @media screen and (max-width: 900px) {
