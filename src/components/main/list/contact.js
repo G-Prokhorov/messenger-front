@@ -18,7 +18,7 @@ export default function Contact(props) {
         </div>
         <div className="chatInfo">
             <h2 className="center-center">{props.name} <span className="unread" style={{display: props.number === 0 ? "none" : "inline-block"}}>{props.number}</span> </h2>
-            <p>{props.message}</p>
+            <p><span className="senderName">{props.sender}:</span> {props.message}</p>
         </div>
     </div>
 }
