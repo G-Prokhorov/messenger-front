@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {updateMessage} from "../../store/actions/message_A";
 import {useDispatch, useSelector} from "react-redux";
 import {newMessageAlert} from "../../store/actions/alert_A";
+import {updateLast} from "../../store/actions/chats_A";
 
 export default function InputChat(props) {
     const [text, setText] = useState("");
@@ -12,6 +13,7 @@ export default function InputChat(props) {
         if (state.currentChat) {
             dispatch(updateMessage(state.currentChat, text, state.user.username));
             dispatch(newMessageAlert());
+            dispatch(updateLast(state.currentChat, state.user.name, state.user.username, text));
             props.setMesArr((prev) => [...prev, text]);
             setText("");
         }

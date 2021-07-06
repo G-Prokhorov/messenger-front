@@ -2,6 +2,7 @@ import {setMessage, updateMessage} from "./store/actions/message_A";
 import store from "./store/store";
 import getMessage from "./main/chat/getMessage";
 import {newMessageAlert} from "./store/actions/alert_A";
+import {updateLastAndNum} from "./store/actions/chats_A";
 
 export default function connect(setSocket) {
     let webSocket = new WebSocket("ws://localhost:5055");
@@ -25,6 +26,7 @@ export default function connect(setSocket) {
 
         console.log(parse);
         store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender));
+        store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1));
         store.dispatch(newMessageAlert());
     }
 
