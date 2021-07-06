@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import logo from "../img/logo.png";
+import logo from "../../img/logo.png";
 import axios from "axios";
 import {useSelector} from "react-redux";
+import "./styleHeader.css";
 
 export default function Header() {
     const [click, setClick] = useState(false);

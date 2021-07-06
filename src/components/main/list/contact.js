@@ -1,6 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentChat} from "../store/actions/currentChat_A";
+import {setCurrentChat} from "../../store/actions/currentChat_A";
+import "./styleList.css";
 
 export default function Contact(props) {
     const dispatch = useDispatch()

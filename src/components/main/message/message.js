@@ -1,4 +1,5 @@
 import React from "react";
+import "./styleMessage.css";
 
 export default function Message(props) {
     return <div>

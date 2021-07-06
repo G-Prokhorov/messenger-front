@@ -1,0 +1,35 @@
+.message {
+    border-radius: 25px;
+    position: relative;
+    padding: 12px 18px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    margin: 3px 0;
+    max-width: 400px !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    line-height: 1.2;
+}
+
+.messageLeft {
+    background: rgba(185, 20, 149, 0.3);
+    float: left;
+}
+
+.messageRight {
+    background: rgba(51, 30, 213, 0.3);
+    float: right;
+}
+
+@media screen and (max-width: 670px) {
+    .message {
+        max-width: 300px !important;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .message {
+        max-width: 220px !important;
+    }
+}

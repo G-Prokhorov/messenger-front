@@ -1,0 +1,58 @@
+.chats {
+    border-right: rgba(255, 255, 255, 0.15) solid 1px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.contact {
+    height: 100px;
+    box-sizing: border-box;
+    padding: 15px;
+    transition: background 0.1s ease-in-out;
+}
+
+.contact:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.chatInfo {
+    height: 80px;
+    margin-left: 25px;
+    box-sizing: border-box;
+    padding: 10px 0;
+    flex-grow: 1;
+    position: relative;
+}
+
+.chatInfo > h2 {
+    margin-bottom: 10px;
+    justify-content: flex-start;
+}
+
+.chatInfo > p {
+    color: rgba(255, 255, 255, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.unread {
+    display: inline-block;
+    text-align: center;
+    line-height: 22px;
+    font-size: 14px;
+    border-radius: 50%;
+    background: rgba(185, 20, 149, 0.3);
+    width: 22px;
+    height: 22px;
+    margin-left: 8px;
+}
+
+@media screen and (max-width: 900px) {
+    .chatInfo {
+        display: none;
+    }
+}

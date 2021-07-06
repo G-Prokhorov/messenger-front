@@ -1,8 +1,8 @@
 import Contact from "./contact";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {asyncSetChats} from "../store/actions/chats_A";
-
+import {asyncSetChats} from "../../store/actions/chats_A";
+import "./styleList.css";
 
 export default function ChatsList() {
     const chats = useSelector((state) => state.chats)

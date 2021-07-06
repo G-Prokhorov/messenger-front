@@ -1,10 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
-import Message from "./message";
+import Message from "../message/message";
 import {useDispatch, useSelector} from "react-redux";
-import {setMessage, updateMessage} from "../store/actions/message_A";
+import {setMessage, updateMessage} from "../../store/actions/message_A";
 import axios from "axios";
-import connect from "../ws";
-import getMessage from "./chat/getMessage";
+import connect from "../../ws";
+import getMessage from "./getMessage";
+import "./styleChat.css"
 
 export default function Chat() {
     const [text, setText] = useState("");

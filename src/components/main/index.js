@@ -5,10 +5,10 @@ import axios from "axios";
 
 import "./style.css"
 import logo from "../img/logo.png";
-import Contact from "./contact";
-import Header from "./header";
-import Chat from "./chat";
-import ChatsList from "./chatsList";
+import Contact from "./list/contact";
+import Header from "./header/header";
+import Chat from "./chat/chat";
+import ChatsList from "./list/chatsList";
 
 export default function Main() {
     withAuth();
