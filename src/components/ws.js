@@ -1,6 +1,7 @@
 import {setMessage, updateMessage} from "./store/actions/message_A";
 import store from "./store/store";
 import getMessage from "./main/chat/getMessage";
+import {newMessageAlert} from "./store/actions/alert_A";
 
 export default function connect(setSocket) {
     let webSocket = new WebSocket("ws://localhost:5055");
@@ -13,7 +14,6 @@ export default function connect(setSocket) {
             return;
         }
         const parse = JSON.parse(event.data);
-        console.log(parse);
 
         let state = store.getState();
 
@@ -23,7 +23,9 @@ export default function connect(setSocket) {
             return;
         }
 
+        console.log(parse);
         store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender));
+        store.dispatch(newMessageAlert());
     }
 
     webSocket.onclose = () => {

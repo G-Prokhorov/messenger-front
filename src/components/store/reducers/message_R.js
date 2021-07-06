@@ -13,7 +13,7 @@ export default function message_R(state = initialState, action) {
                 user: {
                     username: action.username,
                 }
-            }])
+            }]);
         default:
             return state;
     }
