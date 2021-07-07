@@ -21,11 +21,10 @@ export default function connect(setSocket) {
         if (!state.messages.has(parse.chatId)) {
             let message = await getMessage(parse.chatId);
             store.dispatch(setMessage(parse.chatId, message.data.reverse()));
-            return;
+        } else {
+            store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender));
         }
 
-        console.log(parse);
-        store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender));
         store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1));
         store.dispatch(newMessageAlert());
     }
