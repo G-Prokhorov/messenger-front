@@ -41,11 +41,21 @@ html {
     justify-content: center;
 }
 
+.center-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 input {
     outline: none;
     border: none;
     background: transparent;
     font-family: 'Montserrat', sans-serif;
+}
+
+.gradient {
+    background: linear-gradient(122deg, rgba(185, 20, 149, 1) 0%, rgba(3, 29, 63, 1) 100%);
 }
 
 ::-webkit-scrollbar-track {

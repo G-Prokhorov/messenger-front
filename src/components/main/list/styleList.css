@@ -2,6 +2,7 @@
     border-right: rgba(255, 255, 255, 0.15) solid 1px;
     box-sizing: border-box;
     overflow-y: auto;
+    position: relative;
 }
 
 .contact {
@@ -55,6 +56,73 @@
     padding: 0 6px;
     box-sizing: content-box;
     margin-left: 8px;
+}
+
+#addChatDiv {
+    position: absolute;
+    top: 86%;
+    height: 70px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.addChat {
+    height: 70px;
+    border-radius: 35px;
+}
+
+#addChatBth {
+    width: 70px;
+    outline: none;
+    border: none;
+    background: transparent;
+    z-index: 2;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+}
+
+#addChatBth > .plus {
+    fill: rgba(255, 255, 255, 0.75);
+    transition: transform 0.3s ease-in-out;
+}
+
+#addChatBth:hover > .plus {
+    transform: rotate(45deg);
+}
+
+#inputDivAdd {
+    transition: width 0.3s ease-in-out, padding-right 0.2s ease-in;
+    background: rgba(185, 20, 149, 0.4);
+    position: relative;
+    float: right;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-left: 30px;
+}
+
+#inputDivAdd > input {
+    margin: 0;
+    transition: width 0.25s ease-in-out;
+}
+
+#inputDivAdd > button {
+    margin-left: 10px;
+    height: 40px;
+    outline: none;
+    border: none;
+    background: rgba(51, 30, 213, 0.8);
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    border-radius: 5px;
+    transition: width 0.25s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#inputDivAdd > button:disabled {
+    background: rgba(51, 30, 213, 0.2);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 @media screen and (max-width: 900px) {

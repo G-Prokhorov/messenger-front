@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {asyncSetChats} from "../../store/actions/chats_A";
 import "./styleList.css";
+import AddChat from "./addChat";
 
 export default function ChatsList() {
     const chats = useSelector((state) => state.chats)
@@ -16,5 +17,6 @@ export default function ChatsList() {
         {chats.map((chat, key) => {
             return <Contact key={key} id={chat.id_chat} name={chat.name} number={chat.numberOfUnread} message={chat.message} sender={chat.sender_name}/>
         })}
+        <AddChat/>
     </div>;
 }

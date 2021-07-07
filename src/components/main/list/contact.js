@@ -13,7 +13,7 @@ export default function Contact(props) {
 
     return <div style={{background: current === props.id ? "rgba(255, 255, 255, 0.08)" : "transparent"}}
                 className="contact center-center" onClick={handleClick}>
-        < div className="avatar">
+        < div className="gradient avatar">
             <p>{props.name[0].toUpperCase()}</p>
         </div>
         <div className="chatInfo">

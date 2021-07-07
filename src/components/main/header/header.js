@@ -40,7 +40,7 @@ export default function Header() {
         </div>
         <div className="profile">
             <h2 style={{marginRight: "15px"}}>{user.name}</h2>
-            <div className="avatar">
+            <div className="gradient avatar">
                 <p>{user.name[0]}</p>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Message from "../message/message";
 import {useDispatch, useSelector} from "react-redux";
 import {addPrevMes, setMessage} from "../../store/actions/message_A";
@@ -6,8 +6,6 @@ import getMessage from "./getMessage";
 import connect from "../../ws";
 import InputChat from "./inputChat";
 import "./styleChat.css"
-import store from "../../store/store";
-import {newMessageAlert} from "../../store/actions/alert_A";
 import {addFullChat} from "../../store/actions/fullChats_A";
 
 export default function Chat() {
