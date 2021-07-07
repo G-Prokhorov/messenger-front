@@ -23,7 +23,7 @@ export default function InputChat(props) {
         setText(event.target.value);
     }
 
-    return <div className="inputDiv center-center">
+    return <div className="inputDiv center-center" style={{display: state.currentChat ? "flex" : "none"}}>
         <input onChange={handleChange} placeholder="Write a message..." value={text} type="text" id="messageText"/>
         <svg onClick={handleClick} className="sendSvg" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
              viewBox="0 0 16 16">

@@ -1,4 +1,4 @@
-import {SET_MESSAGE, UPDATE_MESSAGE} from "../actionsList";
+import {ADD_PREV, SET_MESSAGE, UPDATE_MESSAGE} from "../actionsList";
 
 const initialState = new Map();
 
@@ -14,6 +14,9 @@ export default function message_R(state = initialState, action) {
                     username: action.username,
                 }
             }]);
+        case ADD_PREV:
+            let next = state.get(action.key);
+            return state.set(action.key, [...action.messages, ...next]);
         default:
             return state;
     }

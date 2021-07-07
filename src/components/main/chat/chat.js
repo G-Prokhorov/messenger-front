@@ -1,13 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
 import Message from "../message/message";
 import {useDispatch, useSelector} from "react-redux";
-import {setMessage} from "../../store/actions/message_A";
+import {addPrevMes, setMessage} from "../../store/actions/message_A";
 import getMessage from "./getMessage";
 import connect from "../../ws";
 import InputChat from "./inputChat";
 import "./styleChat.css"
 import store from "../../store/store";
 import {newMessageAlert} from "../../store/actions/alert_A";
+import {addFullChat} from "../../store/actions/fullChats_A";
 
 export default function Chat() {
     const [messages, setMessages] = useState([]);
@@ -44,8 +45,20 @@ export default function Chat() {
     useEffect(async () => {
         if (state.currentChat) {
             if (!state.messages.has(state.currentChat)) {
-                let message = await getMessage(state.currentChat);
-                dispatch(setMessage(state.currentChat, message.data.reverse()));
+                try {
+                    let message = await getMessage(state.currentChat, '0');
+                    if (message.data.length !== 0) {
+                        dispatch(setMessage(state.currentChat, message.data.reverse()));
+                    }
+
+                    if (message.data.length < 25) {
+                        dispatch(addFullChat(state.currentChat));
+                    }
+                } catch (e) {
+                    if (e.response.data === "Message isn't exist") {
+                        dispatch(addFullChat(state.currentChat));
+                    }
+                }
             }
             setMessages(state.messages.get(state.currentChat));
         }
@@ -55,10 +68,12 @@ export default function Chat() {
         if (state.messages.has(state.currentChat)) {
             setMessages(state.messages.get(state.currentChat));
         }
-    }, [state.alert])
+    }, [state.alert]);
+
+    useEffect(scrollChat, [messages]);
 
     return <div id="chat">
-        <div id="messagesScroll">
+        <div id="messagesScroll" onScroll={checkScroll}>
             <div id="messages">
                 {messages.map((message, key) => {
                     let float = "left";
@@ -67,18 +82,48 @@ export default function Chat() {
                     }
                     return <Message key={key} float={float} text={message.message}/>
                 })}
-                <AlwaysScrollToBottom/>
             </div>
         </div>
         <InputChat setMesArr={setMesArr}/>
     </div>
 
-    function AlwaysScrollToBottom() {
-        const elementRef = useRef();
-        useEffect(() => {
-            document.querySelector("#messagesScroll").style.scrollBehavior = "unset";
-            elementRef.current.scrollIntoView();
-        }, []);
-        return <div ref={elementRef}/>;
-    };
+    function scrollChat() {
+        let div = document.querySelector("#messagesScroll");
+        let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
+        if (chatInfo && div.scrollHeight !== div.offsetHeight) {
+            if (chatInfo.numberOfUnread <= 1) {
+                div.scrollTo(0, div.scrollHeight);
+                return;
+            }
+
+            let num = chatInfo.numberOfUnread - 1;
+            let messagesChild = document.querySelector("#messages").childNodes;
+            div.scrollTo(0, (messagesChild[messagesChild.length - num].offsetTop - div.offsetHeight));
+        }
+    }
+
+    async function checkScroll() {
+        let div = document.querySelector("#messagesScroll");
+        if (div.scrollTop === 0) {
+            if (!state.fullChats.includes(state.currentChat)) {
+                try {
+                    let message = await getMessage(state.currentChat, messages.length);
+                    if (message.data.length !== 0) {
+                        let reverse = message.data.reverse()
+                        dispatch(addPrevMes(state.currentChat, reverse));
+                        setMessages(state.messages.get(state.currentChat));
+                    }
+
+                    if (message.data.length < 25) {
+                        dispatch(addFullChat(state.currentChat));
+                    }
+                } catch (e) {
+                    if (e.response.data === "Message isn't exist") {
+                        dispatch(addFullChat(state.currentChat));
+                    }
+                }
+            }
+
+        }
+    }
 }

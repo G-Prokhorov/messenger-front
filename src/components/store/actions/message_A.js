@@ -1,4 +1,4 @@
-import {SET_MESSAGE, UPDATE_MESSAGE} from "../actionsList";
+import {ADD_PREV, SET_MESSAGE, UPDATE_MESSAGE} from "../actionsList";
 
 export function setMessage(key, messages) {
     return {
@@ -14,5 +14,13 @@ export function updateMessage(key, message, username) {
         key: key,
         message: message,
         username: username
+    }
+}
+
+export function addPrevMes(key, messages) {
+    return {
+        type: ADD_PREV,
+        key: key,
+        messages: messages,
     }
 }

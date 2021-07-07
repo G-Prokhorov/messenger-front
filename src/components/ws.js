@@ -3,6 +3,7 @@ import store from "./store/store";
 import getMessage from "./main/chat/getMessage";
 import {newMessageAlert} from "./store/actions/alert_A";
 import {updateLastAndNum} from "./store/actions/chats_A";
+import {addFullChat} from "./store/actions/fullChats_A";
 
 export default function connect(setSocket) {
     let webSocket = new WebSocket("ws://localhost:5055");
@@ -19,8 +20,20 @@ export default function connect(setSocket) {
         let state = store.getState();
 
         if (!state.messages.has(parse.chatId)) {
-            let message = await getMessage(parse.chatId);
-            store.dispatch(setMessage(parse.chatId, message.data.reverse()));
+            try {
+                let message = await getMessage(parse.chatId, '0');
+                if (message.data.length !== 0) {
+                    store.dispatch(setMessage(parse.chatId, message.data.reverse()));
+                }
+
+                if (message.data.length < 25) {
+                    store.dispatch(addFullChat(state.currentChat));
+                }
+            } catch (e) {
+                if (e.response.data === "Message isn't exist") {
+                    store.dispatch(addFullChat(state.currentChat));
+                }
+            }
         } else {
             store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender));
         }
