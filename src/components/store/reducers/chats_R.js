@@ -23,6 +23,7 @@ export default function (state = initialState, action) {
                 newState[index].sender_name = action.name;
                 newState[index].sender_username = action.username;
                 newState[index].message = action.message;
+                newState[index].lastupdate = new Date();
             }
             return newState;
         case UPDATE_LAST_NUM:
@@ -33,6 +34,7 @@ export default function (state = initialState, action) {
                 newState[index].sender_name = action.name;
                 newState[index].sender_username = action.username;
                 newState[index].message = action.message;
+                newState[index].lastupdate = new Date();
             }
             return newState;
         case ADD_CHAT:
