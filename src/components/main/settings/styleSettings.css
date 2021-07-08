@@ -19,13 +19,46 @@
     padding: 40px 60px;
 }
 
-#headerSetting > button {
+#headerSetting {
+    margin-bottom: 10px;
+}
+
+#settings input {
+    margin: 0 !important;
+}
+
+#headerSetting button {
     outline: none;
     border: none;
-    background: transparent;
+    background: transparent !important;
     cursor: pointer;
+}
+
+#settings label {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 16px;
 }
 
 #headerSetting .plus {
     fill: rgba(255, 255, 255, 0.9);
+}
+
+.settingsBlock {
+    border-top: rgba(185, 20, 149, 0.3) solid 1px;
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
+
+#changeNameDiv input {
+    width: 60%;
+    max-width: 370px;
+}
+
+#settings button {
+    background: rgba(51, 30, 213, 0.4);
+}
+
+#changeNameDiv button {
+    width: 20%;
+    margin-left: 20px;
 }

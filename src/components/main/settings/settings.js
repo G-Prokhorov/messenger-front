@@ -9,7 +9,7 @@ export default function Settings() {
     let show = useSelector(state => state.settings);
     let dispatch = useDispatch();
 
-    return <div id="settings" className="center-center" style={{display: show ? "flex" : "flex"}}>
+    return <div id="settings" className="center-center" style={{display: show ? "flex" : "none"}}>
         <div>
             <div id="headerSetting" className="center-between">
                 <h2>Settings</h2>
@@ -17,7 +17,13 @@ export default function Settings() {
                     <Plus clicked={true}/>
                 </button>
             </div>
-
+            <div className="settingsBlock" id="changeNameDiv">
+                <label htmlFor="name">Change name</label>
+                <div className="center-left">
+                    <input placeholder="Write a new name..." type="text" id="name" />
+                    <button className="blueBth">Change</button>
+                </div>
+            </div>
         </div>
 
     </div>

@@ -111,14 +111,6 @@
 
 #inputDivAdd > button {
     margin-left: 10px;
-    height: 40px;
-    outline: none;
-    border: none;
-    background: rgba(51, 30, 213, 0.8);
-    font-family: 'Montserrat', sans-serif;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
-    border-radius: 5px;
     transition: width 0.25s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 

@@ -61,7 +61,7 @@ export default function AddChat() {
                 display: clicked ? "block" : "none",
                 width: clicked ? "70%" : "0",
             }} type="text" onChange={handleChange} value={text} placeholder="Write a user name..."/>
-            <button type="submit" style={{
+            <button className="blueBth" type="submit" style={{
                 display: clicked ? "block" : "none",
                 width: clicked ? "25%" : "0",
             }} onClick={handleSubmit}

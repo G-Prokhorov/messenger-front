@@ -58,6 +58,18 @@ input {
     background: linear-gradient(122deg, rgba(185, 20, 149, 1) 0%, rgba(3, 29, 63, 1) 100%);
 }
 
+.blueBth {
+    height: 40px;
+    outline: none;
+    border: none;
+    background: rgba(51, 30, 213, 0.8);
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 ::-webkit-scrollbar-track {
     background:transparent;
 }
