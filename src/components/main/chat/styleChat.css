@@ -48,6 +48,19 @@
     min-height: 100%;
 }
 
+#infoMessage {
+    position: absolute;
+    color: #FFFFFF;
+    height: auto;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 16px;
+    background: rgba(51, 30, 213, 0.4);
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
 
 @media screen and (max-width: 670px) {
     #chat {

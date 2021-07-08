@@ -89,6 +89,9 @@ export default function Chat() {
                     }
                     return <Message key={key} float={float} text={message.message}/>
                 })}
+                <p id="infoMessage" style={{display: messages.length === 0 ? "block" : "none"}}>
+                    {state.currentChat ? "Write a first message" : "Select a chat to start messaging"}
+                </p>
             </div>
         </div>
         <InputChat setMesArr={setMesArr}/>
