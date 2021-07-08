@@ -42,7 +42,7 @@ export default function Chat() {
 
     useEffect(async () => {
         if (state.currentChat) {
-            if (!state.messages.has(state.currentChat)) {
+            if (!state.messages.has(state.currentChat) && !state.fullChats.includes(state.currentChat)) {
                 try {
                     let message = await getMessage(state.currentChat, '0');
                     if (message.data.length !== 0) {
@@ -61,7 +61,13 @@ export default function Chat() {
                     return;
                 }
             }
-            setMessages(state.messages.get(state.currentChat));
+
+            if (state.messages.has(state.currentChat)) {
+                setMessages(state.messages.get(state.currentChat));
+            } else {
+                setMessages([]);
+            }
+
         }
     }, [state.currentChat]);
 
