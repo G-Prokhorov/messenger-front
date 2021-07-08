@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 import logo from "../../img/logo.png";
 import axios from "axios";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import "./styleHeader.css";
+import {op_cl_action} from "../../store/actions/setting_A";
 
 export default function Header() {
     const [click, setClick] = useState(false);
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     const handleClick = () => {
         setClick(!click);
@@ -32,7 +34,7 @@ export default function Header() {
                     <path fillRule="evened"
                           d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
                 </svg>
-                <a style={{display: click ? 'block' : 'none', opacity: click ? "1" : "0"}}>Settings</a>
+                <a style={{display: click ? 'block' : 'none', opacity: click ? "1" : "0"}} onClick={() => dispatch(op_cl_action(true))}>Settings</a>
                 <a onClick={logout} style={{display: click ? 'block' : 'none', opacity: click ? "1" : "0"}} className="red">Log Out</a>
             </div>
             <img width="50" height="50" className="logo" src={logo} alt="logo"/>

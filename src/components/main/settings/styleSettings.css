@@ -1,0 +1,31 @@
+#settings {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    min-width: 400px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+#settings > div {
+    min-height: 500px;
+    height: 40%;
+    width: 50%;
+    min-width: 800px;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 40px 60px;
+}
+
+#headerSetting > button {
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+#headerSetting .plus {
+    fill: rgba(255, 255, 255, 0.9);
+}
