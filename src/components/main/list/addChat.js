@@ -22,6 +22,19 @@ export default function AddChat() {
         setText("");
     }
 
+    let styleInput = {
+        width: clicked ? "100%" : "70px",
+        paddingRight: clicked ? "90px" : "0",
+    };
+
+    if (window.innerWidth <= 900) {
+        styleInput = {
+            width: clicked ? "100%" : "70px",
+            paddingLeft: clicked ? "80px" : "0",
+            paddingRight: "30px",
+        };
+    }
+
     return <div id="addChatDiv">
         <button id="addChatBth" className="center-center addChat" onClick={handleClick}>
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" className="plus" style={{transform: clicked ? "rotate(45deg)" : "none"}}
@@ -29,8 +42,7 @@ export default function AddChat() {
                 <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
             </svg>
         </button>
-        <div id="inputDivAdd" className="addChat center-between" style={{width: clicked ? "100%" : "70px",
-                                                                        paddingRight: clicked ? "90px" : "0"}}>
+        <div id="inputDivAdd" className="addChat center-between" style={styleInput}>
             <input style={{
                 display: clicked ? "block" : "none",
                 width: clicked ? "80%" : "0",

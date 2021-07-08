@@ -129,4 +129,21 @@
     .chatInfo {
         display: none;
     }
+
+    #addChatDiv {
+        position: fixed;
+        top: 90vh;
+        left: 0;
+        padding: 0 15px;
+        width: 400px;
+    }
+
+    #addChatBth {
+        right: 0;
+        left: 15px;
+    }
+
+    #inputDivAdd {
+        float: left;
+    }
 }
