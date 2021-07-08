@@ -37,7 +37,7 @@ export default function (state = initialState, action) {
             return newState;
         case ADD_CHAT:
             newState = JSON.parse(JSON.stringify(state));
-            newState.push(action.value);
+            newState.unshift(action.value);
             return newState;
         default:
             return state;
