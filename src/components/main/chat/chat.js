@@ -75,7 +75,7 @@ export default function Chat() {
         if (state.messages.has(state.currentChat)) {
             setMessages(state.messages.get(state.currentChat));
         }
-    }, [state.alert]);
+    }, [state.alertMessage]);
 
     useEffect(scrollChat, [messages]);
 

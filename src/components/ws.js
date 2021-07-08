@@ -1,7 +1,7 @@
 import {setMessage, updateMessage} from "./store/actions/message_A";
 import store from "./store/store";
 import getMessage from "./main/chat/getMessage";
-import {newMessageAlert} from "./store/actions/alert_A";
+import {newMessageAlert} from "./store/actions/alertMessage_A";
 import {updateLastAndNum} from "./store/actions/chats_A";
 import {addFullChat} from "./store/actions/fullChats_A";
 
