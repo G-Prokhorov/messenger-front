@@ -40,7 +40,7 @@
     right: 0;
 }
 
-.chatInfo .senderName  {
+.chatInfo .senderName {
     color: rgba(255, 255, 255, 0.65);
 }
 
@@ -99,12 +99,14 @@
     float: right;
     overflow: hidden;
     box-sizing: border-box;
-    padding-left: 30px;
+    padding-left: 20px;
 }
 
 #inputDivAdd > input {
     margin: 0;
     transition: width 0.25s ease-in-out;
+    font-size: 14px;
+    height: 30px;
 }
 
 #inputDivAdd > button {
@@ -123,6 +125,12 @@
 #inputDivAdd > button:disabled {
     background: rgba(51, 30, 213, 0.2);
     color: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 950px) {
+    #inputDivAdd {
+        padding-left: 15px;
+    }
 }
 
 @media screen and (max-width: 900px) {

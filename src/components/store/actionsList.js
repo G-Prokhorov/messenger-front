@@ -9,3 +9,4 @@ export const UPDATE_LAST = "UPDATE_LAST";
 export const UPDATE_LAST_NUM = "UPDATE_LAST_NUM";
 export const ADD_PREV = "ADD_PREV_MESSAGE";
 export const ADD_FULL = "ADD_CHAT_TO_FULL";
+export const ADD_CHAT = "ADD_CHAT"

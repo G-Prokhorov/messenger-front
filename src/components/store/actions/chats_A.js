@@ -1,4 +1,4 @@
-import {SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
+import {ADD_CHAT, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
 import axios from "axios";
 
 export function setChats(value) {
@@ -46,5 +46,12 @@ export function asyncSetChats() {
             },
         });
         dispatch(setChats(chats.data));
+    }
+}
+
+export function addChat(value) {
+    return {
+        type: ADD_CHAT,
+        value: value,
     }
 }
