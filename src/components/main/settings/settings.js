@@ -4,7 +4,7 @@ import "./styleSettings.css";
 import Plus from "../plus";
 import {useDispatch, useSelector} from "react-redux";
 import {op_cl_action} from "../../store/actions/setting_A";
-import {confirm, confirmFunc, password} from "../../signUp&login/passwordValidation";
+import {confirmFunc, password} from "../../signUp&login/passwordValidation";
 
 export default function Settings() {
     const show = useSelector(state => state.settings);
@@ -48,7 +48,7 @@ export default function Settings() {
         }
     }
 
-    return <div id="settings" className="center-center" style={{display: show ? "flex" : "flex"}}>
+    return <div id="settings" className="center-center" style={{display: show ? "flex" : "none"}}>
         <div>
             <div id="headerSetting" className="center-between">
                 <h2>Settings</h2>
