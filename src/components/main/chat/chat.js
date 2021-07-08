@@ -56,6 +56,9 @@ export default function Chat() {
                     if (e.response.data === "Message isn't exist") {
                         dispatch(addFullChat(state.currentChat));
                     }
+
+                    setMessages([])
+                    return;
                 }
             }
             setMessages(state.messages.get(state.currentChat));
