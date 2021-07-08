@@ -114,11 +114,6 @@
     transition: width 0.25s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-#inputDivAdd > button:disabled {
-    background: rgba(51, 30, 213, 0.2);
-    color: rgba(255, 255, 255, 0.3);
-}
-
 @media screen and (max-width: 950px) {
     #inputDivAdd {
         padding-left: 15px;

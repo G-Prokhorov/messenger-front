@@ -5,6 +5,7 @@ import "./style.css";
 
 import logo from "../img/logo.png";
 import axios from "axios";
+import {changeErr, confirm, password} from "./passwordValidation";
 
 export default function SignUp() {
     const [err, setErr] = useState({
@@ -47,18 +48,6 @@ export default function SignUp() {
         });
     }
 
-    const changeErr = (name, text, state) => {
-        setErr((prev) => {
-            return {
-                ...prev,
-                [name]: {
-                    text: text,
-                    show: state,
-                },
-            }
-        });
-    }
-
     const validateUsername = (username) => {
         let re = new RegExp("^[a-zA-Z0-9_.-]*$");
         return re.test(String(username));
@@ -88,33 +77,23 @@ export default function SignUp() {
         switch (event.target.id) {
             case "username":
                 if (!validateUsername(data.username)) {
-                    changeErr("err1", "can only include of the alphabets characters, number, -, _ and .", true);
+                    changeErr("err1", "can only include of the alphabets characters, number, -, _ and .", true, setErr);
                 } else {
                     let result = await axios.get("http://localhost:5050/checkUser?username=" + data.username);
                     if (result.data === "clear") {
-                        changeErr("err1", "ok", false);
+                        changeErr("err1", "ok", false, setErr);
                     } else if (result.data === "exist") {
-                        changeErr("err1", "user already exist", true);
+                        changeErr("err1", "user already exist", true, setErr);
                     } else {
-                        changeErr("err1", "incomprehensible error", true);
+                        changeErr("err1", "incomprehensible error", true, setErr);
                     }
                 }
                 break;
             case "password":
-                if (data.password.length < 6) {
-                    changeErr("err2", "must be more than 6 characters", true);
-                } else if (data.password.includes("'") || data.password.includes('"') || data.password.includes("`")) {
-                    changeErr("err2", "cannot contain '`'", true);
-                } else {
-                    changeErr("err2", "ok", false);
-                }
+                password(data, setErr)
                 break;
             case "confirm":
-                if (data.password !== data.confirm) {
-                    changeErr("err3", "password mismatch", true);
-                } else {
-                    changeErr("err3", "ok", false);
-                }
+                confirm(data, setErr)
                 break;
             default:
                 break;

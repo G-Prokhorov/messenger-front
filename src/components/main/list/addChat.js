@@ -54,7 +54,7 @@ export default function AddChat() {
 
     return <div id="addChatDiv">
         <button id="addChatBth" className="center-center addChat" onClick={handleClick}>
-            <Plus cliked={clicked}/>
+            <Plus clicked={clicked}/>
         </button>
         <div id="inputDivAdd" className="addChat center-between" style={styleInput}>
             <input style={{

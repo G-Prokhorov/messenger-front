@@ -9,7 +9,7 @@
 }
 
 #settings > div {
-    min-height: 500px;
+    min-height: 520px;
     height: 40%;
     width: 50%;
     min-width: 800px;
@@ -61,4 +61,26 @@
 #changeNameDiv button {
     width: 20%;
     margin-left: 20px;
+}
+
+#passwordChange {
+    position: relative;
+}
+
+#passwordChange > div {
+    flex-wrap: wrap;
+    padding-bottom: 30px;
+}
+
+#passwordChange button, #passwordChange input {
+    width: 45%;
+    min-width: 150px;
+}
+
+#passwordChange input:nth-child(1), #passwordChange input:nth-child(2) {
+    margin-bottom: 20px !important;
+}
+
+#restorePassword button {
+    width: 50%;
 }
