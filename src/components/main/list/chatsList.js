@@ -15,7 +15,7 @@ export default function ChatsList() {
 
     return <div className="chats">
         {chats.map((chat, key) => {
-            return <Contact key={key} id={chat.id_chat} name={chat.name} number={chat.numberOfUnread} message={chat.message} sender={chat.sender_name}/>
+            return <Contact key={key} id={chat.id_chat} img={chat.img} name={chat.name} number={chat.numberOfUnread} message={chat.message} sender={chat.sender_name}/>
         })}
         <AddChat/>
     </div>;

@@ -25,6 +25,7 @@
 .messageImg {
     padding: 5px;
     max-height: 500px;
+    min-height: 100px;
 }
 
 @media screen and (max-width: 670px) {

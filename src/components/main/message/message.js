@@ -3,8 +3,13 @@ import "./styleMessage.css";
 
 export default function Message(props) {
     return <div>
-        <p className={props.float === "left" ? "messageLeft message" : "messageRight message" }>
-            {props.text}
-        </p>
+        {props.img ?
+            <img className={props.float === "left" ? "messageLeft message messageImg" : "messageRight message messageImg"} src={props.text} alt="image" />
+            :
+            <p className={props.float === "left" ? "messageLeft message" : "messageRight message" }>
+                {props.text}
+            </p>
+        }
+
     </div>
 }

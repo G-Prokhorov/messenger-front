@@ -15,7 +15,7 @@
     height: 60px;
     border-radius: 30px;
     border: rgba(255, 255, 255, 0.15) solid 1px;
-    padding: 0 70px 0 20px;
+    padding: 0 70px;
     font-size: 18px;
     margin: 0;
 }
@@ -30,6 +30,19 @@
 
 .sendSvg:hover {
     fill: rgba(255, 255, 255, 0.8);
+}
+
+.paperclip {
+    fill: rgba(185, 20, 149, 0.4);
+    position: absolute;
+    left: 20px;
+    transform: rotate(30deg);
+    transition: fill 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.paperclip:hover {
+    fill: rgba(185, 20, 149, 0.6);
 }
 
 #messagesScroll {
