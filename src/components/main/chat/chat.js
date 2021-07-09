@@ -36,8 +36,11 @@ export default function Chat() {
             let copy = mesArr;
             mesArr.forEach(async (message) => {
                 await socket.send(JSON.stringify({
-                    chatId: state.currentChat,
-                    message: message,
+                    action: "send message",
+                    data: {
+                        chatId: state.currentChat,
+                        message: message,
+                    }
                 }));
                 copy.shift();
             });
@@ -86,7 +89,7 @@ export default function Chat() {
                 let child = Array.from(messages.childNodes);
                 let heightAll = messages.offsetHeight;
                 child = child.slice(-1 * chatInfo.numberOfUnread).map(c => {
-                   return heightAll - c.offsetTop;
+                    return heightAll - c.offsetTop;
                 });
                 setPosArr(child);
             } else {
@@ -130,7 +133,7 @@ export default function Chat() {
 
     useEffect(scrollChat, [messages]);
 
-    useEffect( async () => {
+    useEffect(async () => {
         if (offTop) {
             let amount = messages.length;
             try {
