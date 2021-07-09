@@ -12,6 +12,8 @@ export default function Chat() {
     const [messages, setMessages] = useState([]);
     const [socket, setSocket] = useState(null);
     const [mesArr, setMesArr] = useState([]);
+    const [scroll, setScroll] = useState(false);
+    const [offTop, setOffTop] = useState(false);
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -57,13 +59,17 @@ export default function Chat() {
                         dispatch(addFullChat(state.currentChat));
                     }
 
-                    setMessages([])
+                    setMessages([]);
                     return;
                 }
             }
 
             if (state.messages.has(state.currentChat)) {
+                setScroll(true);
                 setMessages(state.messages.get(state.currentChat));
+
+                let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
+                console.log(chatInfo.numberOfUnread);
             } else {
                 setMessages([]);
             }
@@ -71,13 +77,39 @@ export default function Chat() {
         }
     }, [state.currentChat]);
 
-    useEffect(() => {
+    useEffect(async () => {
         if (state.messages.has(state.currentChat)) {
-            setMessages(state.messages.get(state.currentChat));
+            await setMessages(state.messages.get(state.currentChat));
         }
     }, [state.alertMessage]);
 
     useEffect(scrollChat, [messages]);
+
+    useEffect( async () => {
+        if (offTop) {
+            let amount = messages.length;
+            try {
+                let message = await getMessage(state.currentChat, messages.length);
+                if (message.data.length !== 0) {
+                    let reverse = message.data.reverse()
+                    dispatch(addPrevMes(state.currentChat, reverse));
+                    setMessages(state.messages.get(state.currentChat));
+                }
+
+
+                if (message.data.length < 25) {
+                    dispatch(addFullChat(state.currentChat));
+                }
+            } catch (e) {
+                if (e.response.data === "Message isn't exist") {
+                    dispatch(addFullChat(state.currentChat));
+                }
+            }
+            let child = document.querySelector("#messages").childNodes;
+            child[child.length - amount].scrollIntoView();
+            setOffTop(false);
+        }
+    }, [offTop]);
 
     return <div id="chat">
         <div id="messagesScroll" onScroll={checkScroll}>
@@ -89,51 +121,39 @@ export default function Chat() {
                     }
                     return <Message key={key} float={float} text={message.message}/>
                 })}
-                <p id="infoMessage" style={{display: messages.length === 0 ? "block" : "none"}}>
-                    {state.currentChat ? "Write a first message" : "Select a chat to start messaging"}
-                </p>
             </div>
+            <p id="infoMessage" style={{display: messages.length === 0 ? "block" : "none"}}>
+                {state.currentChat ? "Write a first message" : "Select a chat to start messaging"}
+            </p>
         </div>
         <InputChat setMesArr={setMesArr}/>
     </div>
 
     function scrollChat() {
-        let div = document.querySelector("#messagesScroll");
-        let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
-        if (chatInfo && div.scrollHeight !== div.offsetHeight) {
-            if (chatInfo.numberOfUnread <= 1) {
-                div.scrollTo(0, div.scrollHeight);
-                return;
-            }
+        if (scroll) {
+            let div = document.querySelector("#messagesScroll");
+            let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
+            if (chatInfo && div.scrollHeight !== div.offsetHeight) {
+                if (chatInfo.numberOfUnread <= 1) {
+                    div.scrollTo(0, div.scrollHeight);
+                    return;
+                }
 
-            let num = chatInfo.numberOfUnread - 1;
-            let messagesChild = document.querySelector("#messages").childNodes;
-            div.scrollTo(0, (messagesChild[messagesChild.length - num].offsetTop - div.offsetHeight));
+                let num = chatInfo.numberOfUnread - 1;
+                let messagesChild = document.querySelector("#messages").childNodes;
+                div.scrollTo(0, (messagesChild[messagesChild.length - num].offsetTop - div.offsetHeight));
+            }
+            setScroll(false);
         }
+
     }
 
     async function checkScroll() {
         let div = document.querySelector("#messagesScroll");
-        if (div.scrollTop === 0) {
+        if (div.scrollTop === 0 && !offTop) {
             if (!state.fullChats.includes(state.currentChat)) {
-                try {
-                    let message = await getMessage(state.currentChat, messages.length);
-                    if (message.data.length !== 0) {
-                        let reverse = message.data.reverse()
-                        dispatch(addPrevMes(state.currentChat, reverse));
-                        setMessages(state.messages.get(state.currentChat));
-                    }
-
-                    if (message.data.length < 25) {
-                        dispatch(addFullChat(state.currentChat));
-                    }
-                } catch (e) {
-                    if (e.response.data === "Message isn't exist") {
-                        dispatch(addFullChat(state.currentChat));
-                    }
-                }
+                setOffTop(true);
             }
-
         }
     }
 }

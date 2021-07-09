@@ -36,6 +36,7 @@
     overflow-y: scroll !important;
     box-sizing: border-box;
     padding-right: 6px;
+    position: relative;
 }
 
 #messages {
@@ -44,7 +45,7 @@
     flex-direction: column;
     justify-content: flex-end;
     box-sizing: border-box;
-    padding-top: 40px;
+    padding-top: 10px;
     min-height: 100%;
 }
 
