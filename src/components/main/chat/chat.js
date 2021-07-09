@@ -8,6 +8,7 @@ import InputChat from "./inputChat";
 import "./styleChat.css"
 import {addFullChat} from "../../store/actions/fullChats_A";
 import {updateNumberUnread} from "../../store/actions/chats_A";
+import axios from "axios";
 
 export default function Chat() {
     const [messages, setMessages] = useState([]);
@@ -96,13 +97,25 @@ export default function Chat() {
     }, [state.currentChat]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
+        const interval = setInterval(async () => {
             if (countRead !== 0) {
-                console.log("send", countRead);
-                setRead(0);
+                try {
+                    await axios.patch("http://localhost:5050/markRead", {
+                        chatId: state.currentChat,
+                        value: (-1) * countRead,
+                    }, {
+                        withCredentials: true,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                    setRead(0);
+                } catch (e) {
+                    console.error("Could not mark message");
+                }
             }
 
-        }, 2000);
+        }, 1000);
 
         return () => {
             clearInterval(interval);
@@ -186,10 +199,17 @@ export default function Chat() {
             if (!state.fullChats.includes(state.currentChat)) {
                 setOffTop(true);
             }
-        } else if (div.scrollHeight - div.scrollTop - div.offsetHeight < positionArr[0] ) {
-            setRead(countRead + 1);
-            setPosArr(positionArr.slice(1));
-            dispatch(updateNumberUnread(state.currentChat, 1));
+        } else if (positionArr.length !== 0) {
+            let tmp = div.scrollHeight - div.scrollTop - div.offsetHeight
+            for (let i = positionArr.length - 1; i >= 0; i--) {
+                if (tmp < positionArr[i]) {
+                    setRead(countRead + i + 1);
+                    setPosArr(positionArr.slice(i + 1));
+                    dispatch(updateNumberUnread(state.currentChat, i + 1));
+                    break;
+                }
+            }
+
         }
     }
 }
