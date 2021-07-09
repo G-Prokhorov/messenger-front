@@ -7,6 +7,7 @@ import connect from "../../ws";
 import InputChat from "./inputChat";
 import "./styleChat.css"
 import {addFullChat} from "../../store/actions/fullChats_A";
+import {updateNumberUnread} from "../../store/actions/chats_A";
 
 export default function Chat() {
     const [messages, setMessages] = useState([]);
@@ -14,6 +15,8 @@ export default function Chat() {
     const [mesArr, setMesArr] = useState([]);
     const [scroll, setScroll] = useState(false);
     const [offTop, setOffTop] = useState(false);
+    const [positionArr, setPosArr] = useState([]);
+    const [countRead, setRead] = useState(0);
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
@@ -44,9 +47,10 @@ export default function Chat() {
 
     useEffect(async () => {
         if (state.currentChat) {
+            let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
             if (!state.messages.has(state.currentChat) && !state.fullChats.includes(state.currentChat)) {
                 try {
-                    let message = await getMessage(state.currentChat, '0');
+                    let message = await getMessage(state.currentChat, '0', chatInfo.numberOfUnread + 25);
                     if (message.data.length !== 0) {
                         dispatch(setMessage(state.currentChat, message.data.reverse()));
                     }
@@ -67,15 +71,43 @@ export default function Chat() {
             if (state.messages.has(state.currentChat)) {
                 setScroll(true);
                 setMessages(state.messages.get(state.currentChat));
+                if (chatInfo.numberOfUnread === 0) {
+                    return;
+                }
 
-                let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
-                console.log(chatInfo.numberOfUnread);
+                let scrollDiv = document.querySelector("#messagesScroll");
+                if (scrollDiv.offsetHeight === scrollDiv.scrollHeight) {
+                    dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
+                    //send that all read
+                }
+
+                let messages = document.querySelector("#messages");
+                let child = Array.from(messages.childNodes);
+                let heightAll = messages.offsetHeight;
+                child = child.slice(-1 * chatInfo.numberOfUnread).map(c => {
+                   return heightAll - c.offsetTop;
+                });
+                setPosArr(child);
             } else {
                 setMessages([]);
             }
 
         }
     }, [state.currentChat]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (countRead !== 0) {
+                console.log("send", countRead);
+                setRead(0);
+            }
+
+        }, 2000);
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, [countRead]);
 
     useEffect(async () => {
         if (state.messages.has(state.currentChat)) {
@@ -154,6 +186,10 @@ export default function Chat() {
             if (!state.fullChats.includes(state.currentChat)) {
                 setOffTop(true);
             }
+        } else if (div.scrollHeight - div.scrollTop - div.offsetHeight < positionArr[0] ) {
+            setRead(countRead + 1);
+            setPosArr(positionArr.slice(1));
+            dispatch(updateNumberUnread(state.currentChat, 1));
         }
     }
 }

@@ -11,10 +11,10 @@ export default function (state = initialState, action) {
         case UPDATE_NUM:
             newState = JSON.parse(JSON.stringify(state));
             index = newState.findIndex(chat => chat.id_chat === action.chatId);
-            if (index) {
-                newState[index].numberOfUnread += action.value;
+            if (Number.isInteger(index)) {
+                newState[index].numberOfUnread -= action.value;
             }
-            return state;
+            return newState;
         case UPDATE_LAST:
             newState = JSON.parse(JSON.stringify(state));
             index = newState.findIndex(chat => chat.id_chat === action.chatId);
@@ -29,9 +29,7 @@ export default function (state = initialState, action) {
         case UPDATE_LAST_NUM:
             newState = JSON.parse(JSON.stringify(state));
             index = newState.findIndex(chat => chat.id_chat === action.chatId);
-            console.log(index);
             if (Number.isInteger(index)) {
-                console.log("UPDATE");
                 newState[index].numberOfUnread += action.value;
                 newState[index].sender_name = action.name;
                 newState[index].sender_username = action.username;
