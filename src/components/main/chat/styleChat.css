@@ -11,7 +11,7 @@
 }
 
 #messageText {
-    width: 100%;
+    width: 100% !important;
     height: 60px;
     border-radius: 30px;
     border: rgba(255, 255, 255, 0.15) solid 1px;
@@ -74,6 +74,65 @@
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+}
+
+#inputImgDiv {
+    position: absolute;
+    top: -200px;
+    left: 0;
+    max-width: 100%;
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    backdrop-filter: blur(10px);
+    background: rgba(29, 29, 29, 0.4);
+    flex-direction: column;
+    color: rgba(185, 20, 149, 0.4);
+    transition: color 0.2s ease-in-out;
+}
+
+#inputImgDiv:after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    box-sizing: border-box;
+    border: rgba(185, 20, 149, 0.4) dashed 2px;
+    border-radius: 5px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+#inputImgDiv > input[type="file"] {
+    border: none;
+    margin: 0;
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#inputImgDiv .uploadSvg {
+    fill: rgba(185, 20, 149, 0.4);
+    width: 80px;
+    height: 80px;
+    transition: fill 0.2s ease-in-out;
+}
+
+#inputImgDiv:hover {
+    color: rgba(185, 20, 149, 0.6);
+}
+
+#inputImgDiv:hover .uploadSvg {
+    fill: rgba(185, 20, 149, 0.6);
+}
+
+#inputImgDiv:hover:after {
+    border-color: rgba(185, 20, 149, 0.6);
 }
 
 @media screen and (max-width: 670px) {
