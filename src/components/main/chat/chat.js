@@ -82,7 +82,13 @@ export default function Chat() {
                 let scrollDiv = document.querySelector("#messagesScroll");
                 if (scrollDiv.offsetHeight === scrollDiv.scrollHeight) {
                     dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
-                    //send that all read
+                    await axios.patch("http://localhost:5050/markRead", {
+                        chatId: state.currentChat,
+                        value: (-1) * chatInfo.numberOfUnread,
+                    }, {
+                        withCredentials: true,
+                    });
+                    setRead(0);
                 }
 
                 let messages = document.querySelector("#messages");
