@@ -26,24 +26,36 @@ export default function InputChat(props) {
         let filesArr = Array.from(event.target.files);
         let data = new FormData();
         data.append("chatId", state.currentChat)
-        filesArr.forEach(async (file) => {
+        filesArr = filesArr.map((file) => {
             if (file.type.split("/")[0] === 'image') {
-                try {
-                    let blob = await new Blob([file], {type: file.type})
-                    data.append("files", blob);
-                } catch (e) {
-                    console.error("here" + e);
-                }
+                data.append("files", file);
+                return file;
             }
         });
         (async function () {
-            await axios.post("http://localhost:5050/sendPhoto", data, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
-            });
-        })()
+            try {
+                await axios.post("http://localhost:5050/sendPhoto", data, {
+                    withCredentials: true,
+                });
+                let current = state.currentChat;
+                let user = state.user;
+                filesArr.forEach((file) => {
+                    try {
+                        console.log(file)
+                        let url = URL.createObjectURL(file);
+                        dispatch(updateMessage(current, url, user.username, true));
+                    } catch (e) {
+                        console.error(e)
+                        console.error("Error while locally upload")
+                    }
+                });
+                dispatch(updateLast(current, user.name, user.username, "", true))
+                dispatch(newMessageAlert());
+            } catch {
+                console.error("Couldn't upload file")
+            }
+
+        })();
     }
 
     const handleChange = (event) => {
