@@ -108,9 +108,6 @@ export default function Chat() {
                         value: (-1) * countRead,
                     }, {
                         withCredentials: true,
-                        headers: {
-                            'Content-Type': 'application/json',
-                        }
                     });
                     setRead(0);
                 } catch (e) {
@@ -174,7 +171,7 @@ export default function Chat() {
                 {state.currentChat ? "Write a first message" : "Select a chat to start messaging"}
             </p>
         </div>
-        <InputChat setMesArr={setMesArr}/>
+        <InputChat ws={socket} setMesArr={setMesArr}/>
     </div>
 
     function scrollChat() {
