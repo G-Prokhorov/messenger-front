@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {updateMessage} from "../../store/actions/message_A";
 import {useDispatch, useSelector} from "react-redux";
 import {newMessageAlert} from "../../store/actions/alertMessage_A";
@@ -9,8 +9,9 @@ export default function InputChat(props) {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
-    const handleClick = async () => {
-        if (state.currentChat) {
+    const handleClick = () => {
+        console.log(text)
+        if (state.currentChat && text) {
             dispatch(updateLast(state.currentChat, state.user.name, state.user.username, text));
             dispatch(updateMessage(state.currentChat, text, state.user.username));
             dispatch(newMessageAlert());
@@ -23,13 +24,20 @@ export default function InputChat(props) {
         setText(event.target.value);
     }
 
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            console.log("here")
+            handleClick();
+        }
+    }
+
     return <div className="inputDiv center-center" style={{display: state.currentChat ? "flex" : "none"}}>
         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="paperclip"
              viewBox="0 0 16 16">
             <path
                 d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
         </svg>
-        <input onChange={handleChange} placeholder="Write a message..." value={text} type="text" id="messageText"/>
+        <input onChange={handleChange} onKeyPress={handleKeyPress} placeholder="Write a message..." value={text} type="text" id="messageText"/>
         <svg onClick={handleClick} className="sendSvg" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
              viewBox="0 0 16 16">
             <path
