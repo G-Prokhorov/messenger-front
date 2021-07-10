@@ -130,7 +130,12 @@ export default function Chat() {
 
     useEffect(async () => {
         if (state.messages.has(state.currentChat)) {
-            await setMessages(state.messages.get(state.currentChat));
+            let tmp = state.messages.get(state.currentChat);
+            setMessages(tmp);
+            if (tmp[tmp.length - 1].user.username === state.user.username) {
+                setScroll(true);
+                await scrollChat();
+            }
         }
     }, [state.alertMessage]);
 
