@@ -8,12 +8,13 @@ export function setMessage(key, messages) {
     }
 }
 
-export function updateMessage(key, message, username) {
+export function updateMessage(key, message, username, img = false) {
     return {
         type: UPDATE_MESSAGE,
         key: key,
         message: message,
-        username: username
+        username: username,
+        img: img,
     }
 }
 

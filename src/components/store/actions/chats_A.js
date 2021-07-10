@@ -16,17 +16,18 @@ export function updateNumberUnread(chatId, value) {
     }
 }
 
-export function updateLast(chatId, name, username, message) {
+export function updateLast(chatId, name, username, message, img = false) {
     return {
         type: UPDATE_LAST,
         name: name,
         username: username,
         message: message,
         chatId: chatId,
+        img: img,
     }
 }
 
-export function updateLastAndNum(chatId, name, username, message, num) {
+export function updateLastAndNum(chatId, name, username, message, num, img = false) {
     return {
         type: UPDATE_LAST_NUM,
         name: name,
@@ -34,6 +35,7 @@ export function updateLastAndNum(chatId, name, username, message, num) {
         message: message,
         chatId: chatId,
         value: num,
+        img: img,
     }
 }
 

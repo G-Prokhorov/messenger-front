@@ -10,6 +10,7 @@ export default function message_R(state = initialState, action) {
             let old = state.get(action.key);
             return state.set(action.key, [...old, {
                 message: action.message,
+                img: action.img,
                 user: {
                     username: action.username,
                 }

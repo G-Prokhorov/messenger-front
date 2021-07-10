@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
                 newState[index].sender_username = action.username;
                 newState[index].message = action.message;
                 newState[index].lastupdate = new Date();
+                newState[index].img = action.img;
             }
             return newState.sort(sortFunc);
         case UPDATE_LAST_NUM:
@@ -35,6 +36,7 @@ export default function (state = initialState, action) {
                 newState[index].sender_username = action.username;
                 newState[index].message = action.message;
                 newState[index].lastupdate = new Date();
+                newState[index].img = action.img;
             }
             return newState.sort(sortFunc);
         case ADD_CHAT:
