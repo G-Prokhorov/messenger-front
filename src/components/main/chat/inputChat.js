@@ -41,7 +41,6 @@ export default function InputChat(props) {
                 let user = state.user;
                 filesArr.forEach((file) => {
                     try {
-                        console.log(file)
                         let url = URL.createObjectURL(file);
                         dispatch(updateMessage(current, url, user.username, true));
                     } catch (e) {
