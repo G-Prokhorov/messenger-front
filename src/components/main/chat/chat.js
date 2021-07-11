@@ -75,29 +75,8 @@ export default function Chat() {
             if (state.messages.has(state.currentChat)) {
                 setScroll(true);
                 setMessages(state.messages.get(state.currentChat));
-                if (chatInfo.numberOfUnread === 0) {
-                    return;
-                }
 
-                let scrollDiv = document.querySelector("#messagesScroll");
-                if (scrollDiv.offsetHeight === scrollDiv.scrollHeight) {
-                    dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
-                    await axios.patch("http://localhost:5050/markRead", {
-                        chatId: state.currentChat,
-                        value: (-1) * chatInfo.numberOfUnread,
-                    }, {
-                        withCredentials: true,
-                    });
-                    setRead(0);
-                }
-
-                let messages = document.querySelector("#messages");
-                let child = Array.from(messages.childNodes);
-                let heightAll = messages.offsetHeight;
-                child = child.slice(-1 * chatInfo.numberOfUnread).map(c => {
-                    return heightAll - c.offsetTop;
-                });
-                setPosArr(child);
+                await addMessagePosition(chatInfo);
             } else {
                 setMessages([]);
             }
@@ -131,10 +110,19 @@ export default function Chat() {
     useEffect(async () => {
         if (state.messages.has(state.currentChat)) {
             let tmp = state.messages.get(state.currentChat);
+            let div = document.querySelector("#messagesScroll");
+            let bottom = div.scrollHeight - 10 <= div.scrollTop + div.offsetHeight;
+            console.log(bottom);
             setMessages(tmp);
-            if (tmp[tmp.length - 1].user.username === state.user.username) {
+            if (tmp[tmp.length - 1].user.username === state.user.username || bottom) {
                 setScroll(true);
                 await scrollChat();
+            }
+
+            if (tmp[tmp.length - 1].user.username !== state.user.username) {
+                let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
+                await addMessagePosition(chatInfo);
+                await checkScroll();
             }
         }
     }, [state.alertMessage]);
@@ -224,4 +212,31 @@ export default function Chat() {
 
         }
     }
+
+    async function addMessagePosition(chatInfo) {
+        if (chatInfo.numberOfUnread === 0) {
+            return;
+        }
+
+        let scrollDiv = document.querySelector("#messagesScroll");
+        if (scrollDiv.offsetHeight === scrollDiv.scrollHeight) {
+            dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
+            await axios.patch("http://localhost:5050/markRead", {
+                chatId: state.currentChat,
+                value: (-1) * chatInfo.numberOfUnread,
+            }, {
+                withCredentials: true,
+            });
+            setRead(0);
+        }
+
+        let messages = document.querySelector("#messages");
+        let child = Array.from(messages.childNodes);
+        let heightAll = messages.offsetHeight;
+        child = child.slice(-1 * chatInfo.numberOfUnread).map(c => {
+            return heightAll - c.offsetTop;
+        });
+        setPosArr(child);
+    }
 }
+
