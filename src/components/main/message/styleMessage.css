@@ -26,7 +26,7 @@
     padding: 5px;
     height: 400px;
     object-fit: cover;
-    max-width: 100% !important;
+    max-width: 90% !important;
     width: auto !important;
 }
 

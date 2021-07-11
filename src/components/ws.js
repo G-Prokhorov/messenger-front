@@ -35,10 +35,10 @@ export default function connect(setSocket) {
                 }
             }
         } else {
-            store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender));
+            store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender, parse.img));
         }
 
-        store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1));
+        store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1, parse.img));
         store.dispatch(newMessageAlert());
     }
 
