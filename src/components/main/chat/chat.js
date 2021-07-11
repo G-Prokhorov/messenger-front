@@ -51,6 +51,7 @@ export default function Chat() {
 
     useEffect(async () => {
         if (state.currentChat) {
+            setPosArr([]);
             let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
             if (!state.messages.has(state.currentChat) && !state.fullChats.includes(state.currentChat)) {
                 try {
@@ -74,8 +75,15 @@ export default function Chat() {
 
             if (state.messages.has(state.currentChat)) {
                 setScroll(true);
-                setMessages(state.messages.get(state.currentChat));
-
+                let num = chatInfo.numberOfUnread;
+                if (num !== 0) {
+                    let pos = state.messages.get(state.currentChat).length - num;
+                    let tmp = JSON.parse((JSON.stringify(state.messages.get(state.currentChat))));
+                    tmp.splice(pos, 0, {type: "unreadLabel"});
+                    setMessages(tmp);
+                } else {
+                    setMessages(state.messages.get(state.currentChat));
+                }
                 await addMessagePosition(chatInfo);
             } else {
                 setMessages([]);
@@ -109,10 +117,17 @@ export default function Chat() {
 
     useEffect(async () => {
         if (state.messages.has(state.currentChat)) {
-            let tmp = state.messages.get(state.currentChat);
+            let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
+            let tmp = JSON.parse(JSON.stringify(state.messages.get(state.currentChat)));
             let div = document.querySelector("#messagesScroll");
             let bottom = div.scrollHeight - 10 <= div.scrollTop + div.offsetHeight;
-            console.log(bottom);
+
+            if (tmp[tmp.length - 1].user.username !== state.user.username && !bottom) {
+                let num = chatInfo.numberOfUnread;
+                let pos = state.messages.get(state.currentChat).length - num;
+                tmp.splice(pos, 0, {type: "unreadLabel"});
+            }
+
             setMessages(tmp);
             if (tmp[tmp.length - 1].user.username === state.user.username || bottom) {
                 setScroll(true);
@@ -120,7 +135,6 @@ export default function Chat() {
             }
 
             if (tmp[tmp.length - 1].user.username !== state.user.username) {
-                let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
                 await addMessagePosition(chatInfo);
                 await checkScroll();
             }
@@ -160,6 +174,11 @@ export default function Chat() {
             <div id="messages">
                 {messages.map((message, key) => {
                     let float = "left";
+
+                    if (message.type === "unreadLabel") {
+                        return <div key={key} className="unreadLabel center-center">Unreadable message</div>
+                    }
+
                     if (state.user.username === message.user.username) {
                         float = "right";
                     }
@@ -188,7 +207,6 @@ export default function Chat() {
                 let messagesChild = document.querySelector("#messages").childNodes;
                 div.scrollTo(0, (messagesChild[messagesChild.length - num].offsetTop - div.offsetHeight));
             }
-
         }
 
     }
@@ -209,7 +227,6 @@ export default function Chat() {
                     break;
                 }
             }
-
         }
     }
 
@@ -228,6 +245,7 @@ export default function Chat() {
                 withCredentials: true,
             });
             setRead(0);
+            return;
         }
 
         let messages = document.querySelector("#messages");
