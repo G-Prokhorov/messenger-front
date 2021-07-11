@@ -192,7 +192,7 @@ export default function Chat() {
         <InputChat ws={socket} setMesArr={setMesArr}/>
     </div>
 
-    function scrollChat() {
+    async function scrollChat() {
         if (scroll) {
             setScroll(false);
             let div = document.querySelector("#messagesScroll");
@@ -207,6 +207,15 @@ export default function Chat() {
                 if (unreadStart) {
                     unreadStart.scrollIntoView();
                 }
+            } else if (chatInfo.numberOfUnread !== 0 && div.offsetHeight >=  div.scrollHeight) {
+                dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
+                await axios.patch("http://localhost:5050/markRead", {
+                    chatId: state.currentChat,
+                    value: (-1) * chatInfo.numberOfUnread,
+                }, {
+                    withCredentials: true,
+                });
+                setRead(0);
             }
         }
 
@@ -235,23 +244,10 @@ export default function Chat() {
         if (chatInfo.numberOfUnread === 0) {
             return;
         }
+        let M = document.querySelector("#messages");
+        let child = Array.from(M.childNodes);
 
-        let scrollDiv = document.querySelector("#messagesScroll");
-        if (scrollDiv.offsetHeight === scrollDiv.scrollHeight) {
-            dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
-            await axios.patch("http://localhost:5050/markRead", {
-                chatId: state.currentChat,
-                value: (-1) * chatInfo.numberOfUnread,
-            }, {
-                withCredentials: true,
-            });
-            setRead(0);
-            return;
-        }
-
-        let messages = document.querySelector("#messages");
-        let child = Array.from(messages.childNodes);
-        let heightAll = messages.offsetHeight;
+        let heightAll = M.offsetHeight;
         child = child.slice(-1 * chatInfo.numberOfUnread).map(c => {
             return heightAll - c.offsetTop - (c.offsetHeight / 2);
         });
