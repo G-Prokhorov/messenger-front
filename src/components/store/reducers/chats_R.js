@@ -1,4 +1,4 @@
-import {ADD_CHAT, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
+import {ADD_CHAT, ADD_CHATID, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
 
 const initialState = []
 

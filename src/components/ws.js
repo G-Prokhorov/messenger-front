@@ -2,7 +2,7 @@ import {setMessage, updateMessage} from "./store/actions/message_A";
 import store from "./store/store";
 import getMessage from "./main/chat/getMessage";
 import {newMessageAlert} from "./store/actions/alertMessage_A";
-import {updateLastAndNum} from "./store/actions/chats_A";
+import {addChat, updateLastAndNum} from "./store/actions/chats_A";
 import {addFullChat} from "./store/actions/fullChats_A";
 
 export default function connect(setSocket) {
@@ -18,6 +18,19 @@ export default function connect(setSocket) {
         const parse = JSON.parse(event.data);
 
         let state = store.getState();
+        if (!state.chats.find(chat => chat.id_chat === parse.chatId)) {
+            store.dispatch(addChat({
+                id_chat: parse.chatId,
+                username: parse.sender,
+                name: parse.name,
+                sender_name: "",
+                sender_username: "",
+                message: "",
+                img: false,
+                numberOfUnread: 0,
+                lastupdate: new Date(),
+            }));
+        }
 
         if (!state.messages.has(parse.chatId)) {
             try {
@@ -31,6 +44,7 @@ export default function connect(setSocket) {
                 }
             } catch (e) {
                 if (e.response.data === "Message isn't exist") {
+                    store.dispatch(setMessage(parse.chatId, []));
                     store.dispatch(addFullChat(state.currentChat));
                 }
             }

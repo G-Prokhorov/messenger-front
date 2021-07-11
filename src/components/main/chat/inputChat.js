@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {updateMessage} from "../../store/actions/message_A";
+import {setMessage, updateMessage} from "../../store/actions/message_A";
 import {useDispatch, useSelector} from "react-redux";
 import {newMessageAlert} from "../../store/actions/alertMessage_A";
 import {updateLast} from "../../store/actions/chats_A";
@@ -13,6 +13,10 @@ export default function InputChat(props) {
 
     const handleClick = () => {
         if (state.currentChat && text) {
+            if (!state.messages.has(state.currentChat)) {
+                dispatch(setMessage(state.currentChat, []));
+            }
+
             dispatch(updateLast(state.currentChat, state.user.name, state.user.username, text));
             dispatch(updateMessage(state.currentChat, text, state.user.username));
             dispatch(newMessageAlert());

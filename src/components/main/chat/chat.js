@@ -176,7 +176,7 @@ export default function Chat() {
                     let float = "left";
 
                     if (message.type === "unreadLabel") {
-                        return <div key={key} className="unreadLabel center-center">Unreadable message</div>
+                        return <div id="unreadStart" key={key} className="unreadLabel center-center">Unreadable message</div>
                     }
 
                     if (state.user.username === message.user.username) {
@@ -203,9 +203,10 @@ export default function Chat() {
                     return;
                 }
 
-                let num = chatInfo.numberOfUnread - 1;
-                let messagesChild = document.querySelector("#messages").childNodes;
-                div.scrollTo(0, (messagesChild[messagesChild.length - num].offsetTop - div.offsetHeight));
+                let unreadStart = document.querySelector("#unreadStart");
+                if (unreadStart) {
+                    unreadStart.scrollIntoView();
+                }
             }
         }
 
@@ -252,7 +253,7 @@ export default function Chat() {
         let child = Array.from(messages.childNodes);
         let heightAll = messages.offsetHeight;
         child = child.slice(-1 * chatInfo.numberOfUnread).map(c => {
-            return heightAll - c.offsetTop;
+            return heightAll - c.offsetTop - (c.offsetHeight / 2);
         });
         setPosArr(child);
     }
