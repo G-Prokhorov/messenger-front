@@ -45,7 +45,7 @@ export default function Header() {
         <div className="profile">
             <h2 style={{marginRight: "15px"}}>{user.name}</h2>
             <div className="gradient avatar">
-                <p>{user.name[0]}</p>
+                <p>{user.name[0] ? user.name[0].toUpperCase() : ""}</p>
             </div>
         </div>
     </header>

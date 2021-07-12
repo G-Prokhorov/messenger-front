@@ -27,7 +27,6 @@ function App() {
                 </Route>
                 <Route path="/">
                     <Main/>
-                    <Register/>
                 </Route>
                 <Redirect exact={true} from='*' to='/' />
             </Switch>

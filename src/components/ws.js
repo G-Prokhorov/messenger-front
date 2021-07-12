@@ -7,70 +7,71 @@ import {addFullChat} from "./store/actions/fullChats_A";
 
 export default function connect(setSocket) {
     let state = store.getState();
-    if (state.user.username) {
-        let webSocket = new WebSocket("ws://localhost:5055");
-        let timeOut;
-        let first = true;
-        webSocket.onmessage = async (event) => {
-            if (first) {
-                first = false;
-                setSocket(webSocket);
-                return;
-            }
-            const parse = JSON.parse(event.data);
+    let webSocket = new WebSocket("ws://localhost:5055");
+    let timeOut;
+    let first = true;
+    webSocket.onmessage = async (event) => {
+        if (first) {
+            first = false;
+            setSocket(webSocket);
+            return;
+        }
+        const parse = JSON.parse(event.data);
 
-            if (!state.chats.find(chat => chat.id_chat === parse.chatId)) {
-                store.dispatch(addChat({
-                    id_chat: parse.chatId,
-                    username: parse.sender,
-                    name: parse.name,
-                    sender_name: "",
-                    sender_username: "",
-                    message: "",
-                    img: false,
-                    numberOfUnread: 0,
-                    lastupdate: new Date(),
-                }));
-            }
+        if (!state.chats.find(chat => chat.id_chat === parse.chatId)) {
+            store.dispatch(addChat({
+                id_chat: parse.chatId,
+                username: parse.sender,
+                name: parse.name,
+                sender_name: "",
+                sender_username: "",
+                message: "",
+                img: false,
+                numberOfUnread: 0,
+                lastupdate: new Date(),
+            }));
+        }
 
-            if (!state.messages.has(parse.chatId)) {
-                try {
-                    let message = await getMessage(parse.chatId, '0');
-                    if (message.data.length !== 0) {
-                        store.dispatch(setMessage(parse.chatId, message.data.reverse()));
-                    }
-
-                    if (message.data.length < 25) {
-                        store.dispatch(addFullChat(state.currentChat));
-                    }
-                } catch (e) {
-                    if (e.response.data === "Message isn't exist") {
-                        store.dispatch(setMessage(parse.chatId, []));
-                        store.dispatch(addFullChat(state.currentChat));
-                    }
+        if (!state.messages.has(parse.chatId)) {
+            try {
+                let message = await getMessage(parse.chatId, '0');
+                if (message.data.length !== 0) {
+                    store.dispatch(setMessage(parse.chatId, message.data.reverse()));
                 }
-            } else {
-                store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender, parse.img));
+
+                if (message.data.length < 25) {
+                    store.dispatch(addFullChat(state.currentChat));
+                }
+            } catch (e) {
+                if (e.response.data === "Message isn't exist") {
+                    store.dispatch(setMessage(parse.chatId, []));
+                    store.dispatch(addFullChat(state.currentChat));
+                }
             }
-
-            store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1, parse.img));
-            store.dispatch(newMessageAlert());
+        } else {
+            store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender, parse.img));
         }
 
-        webSocket.onclose = () => {
-            timeOut = setTimeout(() => {
-                connect(setSocket);
-            }, 2000);
-        }
+        store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1, parse.img));
+        store.dispatch(newMessageAlert());
+    }
 
-        webSocket.onerror = () => {
-            first = true;
-            setSocket(null);
-            webSocket.close();
+    webSocket.onclose = (event) => {
+        if (event.code === 1003) {
+            return;
         }
+        timeOut = setTimeout(() => {
+            connect(setSocket);
+        }, 2000);
+    }
 
-        webSocket.onopen = () => {
-            clearTimeout(timeOut);
-        }
+    webSocket.onerror = () => {
+        first = true;
+        setSocket(null);
+        webSocket.close();
+    }
+
+    webSocket.onopen = () => {
+        clearTimeout(timeOut);
     }
 }
