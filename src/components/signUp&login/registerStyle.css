@@ -1,0 +1,73 @@
+.registerForm {
+    position: relative;
+    overflow: hidden;
+    height: 750px;
+    width: 600px !important;
+    box-sizing: border-box;
+}
+
+.registerForm > .form {
+    position: absolute;
+}
+
+.registerForm > .confirmCode {
+    position: absolute;
+}
+
+.registerForm > .confirmCode, .registerForm > .form {
+    transition: left 0.3s ease-in-out, right 0.3s ease-in-out;
+}
+
+.confirmCode .infoP {
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 70%;
+    text-align: center;
+}
+
+.confirmCode a {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+.confirmCode a:hover {
+    text-decoration: underline;
+}
+
+#sendAgain {
+    width: 250px;
+    flex-direction: column;
+}
+
+#line {
+    width: 250px;
+}
+
+#line hr {
+    background: rgba(185, 20, 149, 0.5);
+    height: 5px;
+    float: left;
+    border: 0;
+    margin: 0;
+}
+
+.countdown {
+    animation: downWidth 120s linear;
+}
+
+@keyframes downWidth {
+    0% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .registerForm {
+        width: 100%;
+        height: 100vh;
+        min-height: 630px;
+        border-radius: 0;
+    }
+}

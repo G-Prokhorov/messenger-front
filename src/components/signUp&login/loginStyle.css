@@ -11,14 +11,17 @@
     min-width: 400px;
     height: 750px;
     width: 600px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 30px 0 60px 0;
+    padding: 30px 0 40px 0;
+}
+
+.formBack {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
 }
 
 .logo {
@@ -93,8 +96,11 @@ input {
     color: #FFFFFF;
     font-size: 18px;
     transition: 0.2s border-color ease-in-out;
-    margin-bottom: 38px;
     box-sizing: border-box;
+}
+
+.loginPage input {
+    margin-bottom: 38px;
 }
 
 input:focus {

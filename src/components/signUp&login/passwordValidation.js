@@ -11,7 +11,6 @@ export function changeErr(name, text, state, setErr)  {
 }
 
 export function password(data, setErr) {
-    console.log(data)
     if (data.password.length < 6) {
         changeErr("err2", "must be more than 6 characters", true, setErr);
     } else if (data.password.includes("'") || data.password.includes('"') || data.password.includes("`")) {

@@ -1,7 +1,7 @@
 import {SET_USER_ALL} from "../actionsList";
 
 const initialState = {
-    username: "@",
+    username: "",
     name: ""
 }
 

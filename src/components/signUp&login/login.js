@@ -44,7 +44,7 @@ export default function Login() {
     }
 
     return <main className="loginPage">
-        <div className="form">
+        <div className="form formBack">
             <img width="70" height="70" className="logo" src={logo} alt="logo"/>
             <h1>Log In</h1>
             <div className="inputBox">

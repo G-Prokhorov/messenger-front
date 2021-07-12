@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import './globalstyle.css';
-import SignUp from "./signUp&login/signUp.js";
+import Register from "./signUp&login/register.js";
 import Main from "./main";
 import Login from "./signUp&login/login";
 
@@ -20,13 +20,14 @@ function App() {
         <Router>
             <Switch>
                 <Route path="/register">
-                    <SignUp/>
+                    <Register/>
                 </Route>
                 <Route path="/login">
                     <Login/>
                 </Route>
                 <Route path="/">
                     <Main/>
+                    <Register/>
                 </Route>
                 <Redirect exact={true} from='*' to='/' />
             </Switch>
