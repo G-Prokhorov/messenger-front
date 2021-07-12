@@ -1,0 +1,23 @@
+.formName {
+    max-height: 500px;
+    padding-bottom: 10px;
+}
+
+.formName .buttons {
+    width: 90%;
+}
+
+.formName input {
+    margin-bottom: 0;
+}
+
+.formName .buttons button {
+    width: 45%;
+}
+
+.formName .err {
+    margin-top: -20px;
+    position: static;
+    display: block;
+    opacity: 1;
+}

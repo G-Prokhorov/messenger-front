@@ -10,6 +10,7 @@ import './globalstyle.css';
 import Register from "./signUp&login/register.js";
 import Main from "./main";
 import Login from "./signUp&login/login";
+import SetName from "./setName/setName";
 
 function Redirect(props) {
     return null;
@@ -24,6 +25,9 @@ function App() {
                 </Route>
                 <Route path="/login">
                     <Login/>
+                </Route>
+                <Route  path="/setName">
+                    <SetName/>
                 </Route>
                 <Route path="/">
                     <Main/>

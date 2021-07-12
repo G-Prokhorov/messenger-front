@@ -92,7 +92,7 @@ export default function Register() {
             });
 
             if (result.status === 200) {
-                history.push("/");
+                history.push("/setName");
             }
         } catch (e) {
             console.error("error, " + e);
