@@ -9,6 +9,7 @@ import axios from "axios";
 import {changeErr, confirmFunc, password} from "./passwordValidation";
 import InputBox from "./inputBox";
 import {useHistory} from "react-router-dom";
+import serverUrl from "../serverUrl";
 
 export default function Register() {
     let history = useHistory();
@@ -78,7 +79,7 @@ export default function Register() {
 
     const handleSubmit = async () => {
         try {
-            let result = await axios.post("http://localhost:5050/register", {
+            let result = await axios.post(`${serverUrl}/register`, {
                 username: data.username,
                 password: data.password,
                 confirm: data.confirm,
@@ -105,7 +106,7 @@ export default function Register() {
                 if (!validateUsername(data.username)) {
                     changeErr("err1", "can only include of the alphabets characters, number, -, _ and .", true, setErr);
                 } else {
-                    let result = await axios.get("http://localhost:5050/checkUser?username=" + data.username);
+                    let result = await axios.get(`${serverUrl}/checkUser?username=` + data.username);
                     if (result.data === "clear") {
                         changeErr("err1", "ok", false, setErr);
                     } else if (result.data === "exist") {
@@ -140,7 +141,7 @@ export default function Register() {
 
     const sendCode = async () => {
         try {
-            await axios.post("http://localhost:5050/validateEmail", {
+            await axios.post(`${serverUrl}/sendCodeEmail/register`, {
                 email: data.email,
             });
         } catch (e) {
