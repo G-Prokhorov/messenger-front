@@ -9,6 +9,8 @@ import superheroes from "superheroes";
 import nameSubmit from "../../setName/nameSubmit";
 import {setName} from "../../store/actions/user_A";
 import {changeSender} from "../../store/actions/chats_A";
+import axios from "axios";
+import serverUrl from "../../serverUrl";
 
 export default function Settings() {
     const show = useSelector(state => state.settings);
@@ -45,6 +47,23 @@ export default function Settings() {
         });
     }
 
+    const changePassword = async () => {
+        try {
+            await axios.patch(`${serverUrl}/changePassword`, {
+                oldPassword: info.previous,
+                password: info.password,
+                confirm: info.confirm,
+            }, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+        } catch (e) {
+            changeErr("err2", e.response.data, true, setErr);
+        }
+    }
+
     const handleChange = (event) => {
         setInfo((prev) => {
             return {
@@ -58,6 +77,9 @@ export default function Settings() {
         switch (event.target.id) {
             case "password":
                 password(info, setErr);
+                if (info.password === info.previous) {
+                    changeErr("err2", "old and new password cannot match", true, setErr);
+                }
                 break;
             case "confirm":
                 confirmFunc(info, setErr);
@@ -108,7 +130,7 @@ export default function Settings() {
                            onBlur={validation} placeholder="Confirm a new password..." type="password" id="confirm"/>
                     <input onChange={handleChange} value={info.password}
                            onBlur={validation} placeholder="Write a new password..." type="password" id="password"/>
-                    <button className="blueBth"
+                    <button className="blueBth" onClick={changePassword}
                             disabled={(!(info.previous && err.err2.text === "ok" && err.err3.text === "ok"))}>Change
                     </button>
                 </div>
@@ -127,6 +149,5 @@ export default function Settings() {
                 </div>
             </div>
         </div>
-
     </div>
 }
