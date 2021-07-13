@@ -1,6 +1,6 @@
 import {SETTINGS} from "../actionsList";
 
-const initialState = false;
+const initialState = true;
 
 export default function setting_R(state = initialState, action) {
     switch (action.type) {

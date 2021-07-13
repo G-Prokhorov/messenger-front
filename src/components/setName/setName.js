@@ -8,6 +8,7 @@ import superheroes from "superheroes";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import withAuth from "../withAuth";
+import nameSubmit from "./nameSubmit";
 
 export default function SetName() {
     withAuth();
@@ -26,19 +27,11 @@ export default function SetName() {
 
     const handleSubmit = async () => {
         try {
-            await axios.patch("http://localhost:5050/updateName", {
-                name: name
-            }, {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
+            await nameSubmit(name);
             history.push("/");
         } catch (e) {
             setErr(e.response.data);
         }
-
     }
 
     return <div className="loginPage">

@@ -1,5 +1,4 @@
-import {SET_USER_ALL} from "../actionsList";
-
+import {SET_NAME, SET_USER_ALL} from "../actionsList";
 const initialState = {
     username: "",
     name: ""
@@ -13,6 +12,12 @@ export default function user_R(state = initialState, action) {
                 username: action.username,
                 name: action.name,
             }
+        case SET_NAME: {
+            return {
+                ...state,
+                name: action.name,
+            }
+        }
         default:
             return state;
     }
