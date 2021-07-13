@@ -17,17 +17,8 @@ export default function withAuth() {
                     'Content-Type': 'application/json',
                 }
             });
-            if (res.status !== 200) {
-                await history.push({
-                    pathname: "/login",
-                    state: {
-                        response: "login"
-                    }
-                });
-                return;
-            }
 
-            dispatch(userAll(res.data.username, res.data.name));
+            dispatch(userAll(res.data.username, res.data.name, res.data.email));
         } catch (e) {
             await history.push({
                 pathname: "/login",

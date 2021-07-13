@@ -2,7 +2,8 @@ import {SET_NAME, SET_USER_ALL} from "../actionsList";
 
 const initialState = {
     username: "",
-    name: ""
+    name: "",
+    email: "",
 }
 
 export default function user_R(state = initialState, action) {
@@ -12,6 +13,7 @@ export default function user_R(state = initialState, action) {
                 ...state,
                 username: action.username,
                 name: action.name,
+                email: action.email,
             }
         case SET_NAME: {
             return {
