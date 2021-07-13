@@ -1,4 +1,5 @@
 import {SET_NAME, SET_USER_ALL} from "../actionsList";
+
 const initialState = {
     username: "",
     name: ""

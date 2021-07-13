@@ -8,9 +8,11 @@ import {changeErr, confirmFunc, password} from "../../signUp&login/passwordValid
 import superheroes from "superheroes";
 import nameSubmit from "../../setName/nameSubmit";
 import {setName} from "../../store/actions/user_A";
+import {changeSender} from "../../store/actions/chats_A";
 
 export default function Settings() {
     const show = useSelector(state => state.settings);
+    const name = useSelector(state => state.user.name);
     const dispatch = useDispatch();
     const [info, setInfo] = useState({
         name: "",
@@ -66,6 +68,7 @@ export default function Settings() {
     const nameChange = async () => {
         try {
             await nameSubmit(info.name);
+            dispatch(changeSender(name, info.name));
             dispatch(setName(info.name));
         } catch (e) {
             changeErr('err1', e.response.data, true, setErr)

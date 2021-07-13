@@ -12,3 +12,4 @@ export const ADD_FULL = "ADD_CHAT_TO_FULL";
 export const ADD_CHAT = "ADD_CHAT";
 export const SETTINGS = "SETTINGS";
 export const SET_NAME = "SET_NAME";
+export const CHANGE_SENDER = "CHANGE_SENDER";

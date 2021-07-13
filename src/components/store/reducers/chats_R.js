@@ -1,4 +1,4 @@
-import {ADD_CHAT, ADD_CHATID, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
+import {ADD_CHAT, ADD_CHATID, CHANGE_SENDER, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
 
 const initialState = []
 
@@ -42,6 +42,14 @@ export default function (state = initialState, action) {
         case ADD_CHAT:
             newState = JSON.parse(JSON.stringify(state));
             newState.unshift(action.value);
+            return newState;
+        case CHANGE_SENDER:
+            newState = JSON.parse(JSON.stringify(state));
+            newState.forEach((chat) => {
+                if (chat.sender_name === action.old) {
+                    chat.sender_name = action.new;
+                }
+            });
             return newState;
         default:
             return state.sort(sortFunc);

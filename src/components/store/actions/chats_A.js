@@ -1,4 +1,4 @@
-import {ADD_CHAT, ADD_CHATID, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
+import {ADD_CHAT, ADD_CHATID, CHANGE_SENDER, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
 import axios from "axios";
 
 export function setChats(value) {
@@ -55,5 +55,13 @@ export function addChat(value) {
     return {
         type: ADD_CHAT,
         value: value,
+    }
+}
+
+export function changeSender(oldName, newName) {
+    return {
+        type: CHANGE_SENDER,
+        old: oldName,
+        new: newName,
     }
 }
