@@ -80,3 +80,30 @@
 #passwordChange input:nth-child(1), #passwordChange input:nth-child(2) {
     margin-bottom: 20px !important;
 }
+
+@media screen and (max-width: 700px) {
+    #settings {
+        overflow: auto;
+    }
+
+    #settings > div {
+        width: 100vw;
+        height: 100%;
+        min-height: 600px;
+    }
+
+    .settingsBlock, #headerSetting {
+        width: 90vw;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    #passwordChange > div {
+        flex-direction: column;
+    }
+
+    #passwordChange button, #passwordChange input {
+        margin: 20px 0 !important;
+        width: 80%;
+    }
+}
