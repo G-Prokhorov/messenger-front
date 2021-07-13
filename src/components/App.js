@@ -11,6 +11,7 @@ import Register from "./signUp&login/register.js";
 import Main from "./main";
 import Login from "./signUp&login/login";
 import SetName from "./setName/setName";
+import RestorePage from "./signUp&login/restorePage";
 
 function Redirect(props) {
     return null;
@@ -28,6 +29,9 @@ function App() {
                 </Route>
                 <Route  path="/setName">
                     <SetName/>
+                </Route>
+                <Route path="/restore">
+                    <RestorePage/>
                 </Route>
                 <Route path="/">
                     <Main/>

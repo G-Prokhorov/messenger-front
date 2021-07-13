@@ -12,7 +12,7 @@
     min-height: 520px;
     height: 40%;
     width: 50%;
-    min-width: 800px;
+    min-width: 600px;
     background: rgba(0, 0, 0, 0.9);
     border-radius: 5px;
     box-sizing: border-box;
@@ -49,47 +49,6 @@
     margin-bottom: 10px;
 }
 
-#restorePassword > div {
-    position: relative;
-    overflow: hidden;
-    height: 40px;
-    width: 100%;
-    padding-bottom: 40px;
-}
-
-#restorePassword .bthRestoreDiv {
-    position: absolute !important;
-    width: 100%;
-    transition: right 0.3s ease-in-out;
-}
-
-#restorePassword .bthRestoreDiv input {
-    width: 40%;
-}
-
-#restorePassword .bthRestoreDiv button {
-    width: 25%;
-}
-
-#restorePassword .restoreInputDiv input {
-    width: 35%;
-}
-
-#restorePassword .restoreInputDiv button {
-    width: 25%;
-}
-
-#restorePassword .restoreInputDiv {
-    position: absolute !important;
-    top: 0;
-    width: 100%;
-    transition: left 0.3s ease-in-out;
-}
-
-#restorePassword .err {
-    bottom: -10px;
-}
-
 #changeNameDiv input {
     width: 60%;
     max-width: 370px;
@@ -110,7 +69,7 @@
 
 #passwordChange > div {
     flex-wrap: wrap;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 
 #passwordChange button, #passwordChange input {
@@ -120,8 +79,4 @@
 
 #passwordChange input:nth-child(1), #passwordChange input:nth-child(2) {
     margin-bottom: 20px !important;
-}
-
-#restorePassword button {
-    width: 50%;
 }

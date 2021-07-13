@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 
 import "./loginStyle.css";
-import "./style.css";
 import "./registerStyle.css";
 
 import logo from "../img/logo.png";

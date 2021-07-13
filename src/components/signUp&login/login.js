@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 
 import "./loginStyle.css";
-import "./style.css";
-
 import logo from "../img/logo.png";
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
@@ -61,7 +59,11 @@ export default function Login() {
             <button className="submit" onClick={handleSubmit}
                     disabled={!(data.username && data.password)}>LOG IN
             </button>
-            <p className="question">Don't have an account? <Link to={"/register"}>Register</Link></p>
+            <div>
+                <p className="question">Don't have an account? <Link to={"/register"}>Register</Link></p>
+                <p className="question">Forgot your password? <Link to={"/restore"}>Restore</Link></p>
+            </div>
+
         </div>
     </main>
 }

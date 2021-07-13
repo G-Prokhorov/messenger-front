@@ -23,9 +23,6 @@ export default function Settings() {
         previous: "",
         password: "",
         confirm: "",
-        restorePassword: "",
-        restoreConfirm: "",
-        key: "",
     });
 
     const [err, setErr] = useState({
@@ -42,15 +39,6 @@ export default function Settings() {
             show: false,
         },
     });
-
-    useEffect(() => {
-        if (send) {
-            let timeout = setTimeout(() => {
-                setSend(false);
-            }, 120000);
-            return () => clearTimeout(timeout);
-        }
-    }, [send]);
 
     const generate = () => {
         setInfo((prev) => {
@@ -98,22 +86,6 @@ export default function Settings() {
             case "confirm":
                 confirmFunc(info, setErr);
                 break;
-            case "restorePassword":
-                if (info.restorePassword.length < 6) {
-                    changeErr("err2", "must be more than 6 characters", true, setErr);
-                } else if (info.restorePassword.includes("'") || info.restorePassword.includes('"') || info.restorePassword.includes("`")) {
-                    changeErr("err2", "cannot contain '`'", true, setErr);
-                } else {
-                    changeErr("err2", "ok", false, setErr);
-                }
-                break;
-            case "restoreConfirm":
-                if (info.restorePassword !== info.restoreConfirm) {
-                    changeErr("err3", "password mismatch", true, setErr);
-                } else {
-                    changeErr("err3", "ok", false, setErr);
-                }
-                break;
         }
     }
 
@@ -124,32 +96,6 @@ export default function Settings() {
             dispatch(setName(info.name));
         } catch (e) {
             changeErr('err1', e.response.data, true, setErr)
-        }
-    }
-
-    const restoreCode = async () => {
-        try {
-            await axios.post(`${serverUrl}/sendCodeEmail/restore`, {
-                email: user.email,
-            });
-            setSend(true);
-        } catch (e) {
-            setSend(false);
-            changeErr('err2', e.response.data, true, setErr);
-        }
-    }
-
-    const restorePost = async () => {
-        try {
-            await axios.patch(`${serverUrl}/restorePassword`, {
-                email: user.email,
-                password: info.password,
-                confirm: info.confirm,
-                key: info.key,
-            });
-        } catch (e) {
-            setNext(true);
-            changeErr('err2', e.response.data, true, setErr);
         }
     }
 
@@ -189,26 +135,6 @@ export default function Settings() {
                     <button className="blueBth" onClick={changePassword}
                             disabled={(!(info.previous && err.err2.text === "ok" && err.err3.text === "ok"))}>Change
                     </button>
-                </div>
-            </div>
-            <div className="settingsBlock" id="restorePassword">
-                <label htmlFor="name">Restore password</label>
-                <div>
-                    <div className="center-between bthRestoreDiv" style={{right: next ? "100%" : "0"}}>
-                        <input onChange={handleChange} value={info.key}
-                               placeholder="Code" type="text" id="key"/>
-                        <button onClick={restoreCode} className="blueBth" disabled={send}>Send code</button>
-                        <button onClick={() => setNext(true)} disabled={!info.key} className="blueBth">Next</button>
-                    </div>
-                    <div className="center-between restoreInputDiv" style={{left: next ? "0" : "100%"}}>
-                        <input onChange={handleChange} value={info.restorePassword}
-                               onBlur={validation} placeholder="Write a new password..." type="password" id="restorePassword"/>
-                        <input onChange={handleChange} value={info.restoreConfirm}
-                               onBlur={validation} placeholder="Confirm a new password..." type="password" id="restoreConfirm"/>
-                        <button className="blueBth" onClick={restorePost}
-                                disabled={!(err.err2.text === "ok" && err.err3.text === "ok")}>Change
-                        </button>
-                    </div>
                     <p className="err" style={err.err2.show || err.err3.show ? {
                         opacity: 1,
                         display: "block",
