@@ -102,10 +102,10 @@ export default function Chat() {
                     }, {
                         withCredentials: true,
                     });
-                    setRead(0);
                 } catch (e) {
                     console.error("Could not mark message");
                 }
+                setRead(0);
             }
 
         }, 1000);

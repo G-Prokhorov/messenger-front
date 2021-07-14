@@ -2,23 +2,25 @@ import {setMessage, updateMessage} from "./store/actions/message_A";
 import store from "./store/store";
 import getMessage from "./main/chat/getMessage";
 import {newMessageAlert} from "./store/actions/alertMessage_A";
-import {addChat, updateLastAndNum} from "./store/actions/chats_A";
+import {addChat, updateLast, updateLastAndNum} from "./store/actions/chats_A";
 import {addFullChat} from "./store/actions/fullChats_A";
 
 export default function connect(setSocket) {
-    let state = store.getState();
     let webSocket = new WebSocket("ws://localhost:5055");
     let timeOut;
     let first = true;
     webSocket.onmessage = async (event) => {
+        let state = store.getState();
         if (first) {
             first = false;
             setSocket(webSocket);
             return;
         }
+        console.log(event)
         const parse = JSON.parse(event.data);
 
         if (!state.chats.find(chat => chat.id_chat === parse.chatId)) {
+            console.log("here");
             store.dispatch(addChat({
                 id_chat: parse.chatId,
                 username: parse.sender,
@@ -52,7 +54,11 @@ export default function connect(setSocket) {
             store.dispatch(updateMessage(parse.chatId, parse.message, parse.sender, parse.img));
         }
 
-        store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1, parse.img));
+        if (parse.sender === state.user.username) {
+            store.dispatch(updateLast(parse.chatId, parse.name, parse.sender, parse.message, parse.img));
+        } else {
+            store.dispatch(updateLastAndNum(parse.chatId, parse.name, parse.sender, parse.message, 1, parse.img));
+        }
         store.dispatch(newMessageAlert());
     }
 
