@@ -16,11 +16,9 @@ export default function connect(setSocket) {
             setSocket(webSocket);
             return;
         }
-        console.log(event)
         const parse = JSON.parse(event.data);
 
         if (!state.chats.find(chat => chat.id_chat === parse.chatId)) {
-            console.log("here");
             store.dispatch(addChat({
                 id_chat: parse.chatId,
                 username: parse.sender,

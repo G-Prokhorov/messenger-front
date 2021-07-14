@@ -5,7 +5,6 @@ import {useDispatch} from "react-redux";
 import {userAll} from "./store/actions/user_A";
 
 export default function withAuth() {
-    console.log("auth");
     const history = useHistory();
     const dispatch = useDispatch();
 
