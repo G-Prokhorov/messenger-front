@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import "./styleHeader.css";
 import {op_cl_action} from "../../store/actions/setting_A";
 import {userAll} from "../../store/actions/user_A";
+import serverUrl from "../../serverUrl";
 
 export default function Header() {
     const [click, setClick] = useState(false);
@@ -21,7 +22,7 @@ export default function Header() {
     }
 
     let logout = async () => {
-        await axios.get("http://localhost:5050/logout", {withCredentials: true});
+        await axios.get(`${serverUrl}/logout`, {withCredentials: true});
         dispatch(userAll("", ""));
         window.location.reload();
     }

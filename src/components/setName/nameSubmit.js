@@ -1,7 +1,8 @@
 import axios from "axios";
+import serverUrl from "../serverUrl";
 
 export default async function nameSubmit(name) {
-    await axios.patch("http://localhost:5050/updateName", {
+    await axios.patch(`${serverUrl}/updateName`, {
         name: name
     }, {
         withCredentials: true,

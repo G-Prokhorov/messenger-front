@@ -1,5 +1,6 @@
 import {ADD_CHAT, ADD_CHATID, CHANGE_SENDER, SET_CHATS, UPDATE_LAST, UPDATE_LAST_NUM, UPDATE_NUM} from "../actionsList";
 import axios from "axios";
+import serverUrl from "../../serverUrl";
 
 export function setChats(value) {
     return {
@@ -41,7 +42,7 @@ export function updateLastAndNum(chatId, name, username, message, num, img = fal
 
 export function asyncSetChats() {
     return async function (dispatch) {
-        let chats = await axios.get("http://localhost:5050/getChat", {
+        let chats = await axios.get(`${serverUrl}/getChat`, {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',

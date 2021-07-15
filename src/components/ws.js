@@ -6,7 +6,7 @@ import {addChat, updateLast, updateLastAndNum} from "./store/actions/chats_A";
 import {addFullChat} from "./store/actions/fullChats_A";
 
 export default function connect(setSocket) {
-    let webSocket = new WebSocket("ws://localhost:5055");
+    let webSocket = new WebSocket('${serverUrl}/ws');
     let timeOut;
     let first = true;
     webSocket.onmessage = async (event) => {

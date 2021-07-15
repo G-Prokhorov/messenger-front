@@ -3,6 +3,7 @@ import axios from "axios";
 import {useDispatch} from "react-redux";
 import {addChat} from "../../store/actions/chats_A";
 import Plus from "../plus";
+import serverUrl from "../../serverUrl";
 
 export default function AddChat() {
     const [clicked, setClick] = useState(false);
@@ -24,7 +25,7 @@ export default function AddChat() {
     const handleSubmit = async () => {
         handleClick();
         try {
-            let res = await axios.put("http://localhost:5050/createChat", {
+            let res = await axios.put(`${serverUrl}/createChat`, {
                 users: [text]
             }, {
                 withCredentials: true,

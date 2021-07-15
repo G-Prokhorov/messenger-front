@@ -9,6 +9,7 @@ import "./styleChat.css"
 import {addFullChat} from "../../store/actions/fullChats_A";
 import {updateNumberUnread} from "../../store/actions/chats_A";
 import axios from "axios";
+import serverUrl from "../../serverUrl";
 
 export default function Chat() {
     const [messages, setMessages] = useState([]);
@@ -96,7 +97,7 @@ export default function Chat() {
         const interval = setInterval(async () => {
             if (countRead !== 0) {
                 try {
-                    await axios.patch("http://localhost:5050/markRead", {
+                    await axios.patch(`${serverUrl}/markRead`, {
                         chatId: state.currentChat,
                         value: (-1) * countRead,
                     }, {
@@ -209,7 +210,7 @@ export default function Chat() {
                 }
             } else if (chatInfo.numberOfUnread !== 0 && div.offsetHeight >=  div.scrollHeight) {
                 dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
-                await axios.patch("http://localhost:5050/markRead", {
+                await axios.patch(`${serverUrl}/markRead`, {
                     chatId: state.currentChat,
                     value: (-1) * chatInfo.numberOfUnread,
                 }, {

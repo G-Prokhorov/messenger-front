@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {newMessageAlert} from "../../store/actions/alertMessage_A";
 import {updateLast} from "../../store/actions/chats_A";
 import axios from "axios";
+import serverUrl from "../../serverUrl";
 
 export default function InputChat(props) {
     const [text, setText] = useState("");
@@ -38,7 +39,7 @@ export default function InputChat(props) {
         });
         (async function () {
             try {
-                await axios.post("http://localhost:5050/sendPhoto", data, {
+                await axios.post(`${serverUrl}/sendPhoto`, data, {
                     withCredentials: true,
                 });
                 let current = state.currentChat;

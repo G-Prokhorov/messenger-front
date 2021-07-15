@@ -4,6 +4,7 @@ import "./loginStyle.css";
 import logo from "../img/logo.png";
 import {Link, useHistory} from "react-router-dom";
 import axios from "axios";
+import serverUrl from "../serverUrl";
 
 export default function Login() {
     const history = useHistory();
@@ -23,7 +24,7 @@ export default function Login() {
 
     const handleSubmit = async () => {
         try {
-            let result = await axios.post("http://localhost:5050/login", {
+            let result = await axios.post(`${serverUrl}/login`, {
                 username: data.username,
                 password: data.password
             }, {
