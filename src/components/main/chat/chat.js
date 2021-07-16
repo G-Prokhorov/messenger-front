@@ -85,7 +85,6 @@ export default function Chat() {
                 } else {
                     setMessages(state.messages.get(state.currentChat));
                 }
-                await addMessagePosition(chatInfo);
             } else {
                 setMessages([]);
             }
@@ -134,15 +133,14 @@ export default function Chat() {
                 setScroll(true);
                 await scrollChat();
             }
-
-            if (tmp[tmp.length - 1].user.username !== state.user.username) {
-                await addMessagePosition(chatInfo);
-                await checkScroll();
-            }
         }
     }, [state.alertMessage]);
 
-    useEffect(scrollChat, [messages]);
+    useEffect(async () => {
+        await scrollChat();
+        await addMessagePosition();
+        checkScroll();
+    }, [messages]);
 
     useEffect(async () => {
         if (offTop) {
@@ -241,7 +239,9 @@ export default function Chat() {
         }
     }
 
-    async function addMessagePosition(chatInfo) {
+    async function addMessagePosition() {
+        let chatInfo = state.chats.find(chat => chat.id_chat === state.currentChat);
+        console.log(chatInfo.numberOfUnread)
         if (chatInfo.numberOfUnread === 0) {
             return;
         }
@@ -252,6 +252,7 @@ export default function Chat() {
         child = child.slice(-1 * chatInfo.numberOfUnread).map(c => {
             return heightAll - c.offsetTop - (c.offsetHeight / 2);
         });
+        console.log(child);
         setPosArr(child);
     }
 }
