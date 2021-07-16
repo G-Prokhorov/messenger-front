@@ -5,6 +5,7 @@ import {newMessageAlert} from "../../store/actions/alertMessage_A";
 import {updateLast} from "../../store/actions/chats_A";
 import axios from "axios";
 import serverUrl from "../../serverUrl";
+import addNewMessage from "../../addNewMessage";
 
 export default function InputChat(props) {
     const [text, setText] = useState("");
@@ -12,18 +13,10 @@ export default function InputChat(props) {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
-    const handleClick = () => {
-        if (state.currentChat && text) {
-            if (!state.messages.has(state.currentChat)) {
-                dispatch(setMessage(state.currentChat, []));
-            }
-
-            dispatch(updateLast(state.currentChat, state.user.name, state.user.username, text));
-            dispatch(updateMessage(state.currentChat, text, state.user.username));
-            dispatch(newMessageAlert());
-            props.setMesArr((prev) => [...prev, text]);
-            setText("");
-        }
+    const handleClick = async () => {
+        await addNewMessage(dispatch, state, state.currentChat, text, state.user.username, state.user.name, false);
+        props.setMesArr((prev) => [...prev, text]);
+        setText("");
     }
 
     const sendFile = (event) => {
@@ -45,16 +38,16 @@ export default function InputChat(props) {
                 let current = state.currentChat;
                 let user = state.user;
                 filesArr.forEach((file) => {
-                    try {
-                        let url = URL.createObjectURL(file);
-                        dispatch(updateMessage(current, url, user.username, true));
-                    } catch (e) {
-                        console.error(e)
-                        console.error("Error while locally upload")
-                    }
+                    (async function () {
+                        try {
+                            let url = URL.createObjectURL(file);
+                            await addNewMessage(dispatch, state, current, url, user.username, user.name, true);
+                        } catch (e) {
+                            console.error(e)
+                            console.error("Error while locally upload")
+                        }
+                    })()
                 });
-                dispatch(updateLast(current, user.name, user.username, "", true))
-                dispatch(newMessageAlert());
             } catch {
                 console.error("Couldn't upload file")
             }
