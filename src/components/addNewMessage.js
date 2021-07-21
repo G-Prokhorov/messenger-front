@@ -11,6 +11,8 @@ export default async function addNewMessage(dispatch, state, chatId, message, se
             let message = await getMessage(chatId, '0');
             if (message.data.length !== 0) {
                 dispatch(setMessage(chatId, message.data.reverse()));
+            } else {
+                dispatch(updateMessage(chatId, message, sender, img));
             }
 
             if (message.data.length < 25) {
@@ -22,11 +24,9 @@ export default async function addNewMessage(dispatch, state, chatId, message, se
                 dispatch(addFullChat(state.currentChat));
             }
         }
+    } else {
+        dispatch(updateMessage(chatId, message, sender, img));
     }
-
-    console.log(chatId, message, sender, img)
-
-    dispatch(updateMessage(chatId, message, sender, img));
 
     if (sender === state.user.username) {
         dispatch(updateLast(chatId, senderName, sender, message, img));
