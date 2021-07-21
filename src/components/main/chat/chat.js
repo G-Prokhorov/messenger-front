@@ -127,7 +127,7 @@ export default function Chat() {
                 let pos = state.messages.get(state.currentChat).length - num;
                 tmp.splice(pos, 0, {type: "unreadLabel"});
             }
-
+            
             setMessages(tmp);
             if (tmp[tmp.length - 1].user.username === state.user.username || bottom) {
                 setScroll(true);
@@ -137,9 +137,11 @@ export default function Chat() {
     }, [state.alertMessage]);
 
     useEffect(async () => {
-        await scrollChat();
-        await addMessagePosition();
-        checkScroll();
+        if (state.currentChat) {
+            await scrollChat();
+            await addMessagePosition();
+            checkScroll();
+        }
     }, [messages]);
 
     useEffect(async () => {

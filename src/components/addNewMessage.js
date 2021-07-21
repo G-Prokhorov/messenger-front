@@ -6,7 +6,7 @@ import {updateLast, updateLastAndNum} from "./store/actions/chats_A";
 import {newMessageAlert} from "./store/actions/alertMessage_A";
 
 export default async function addNewMessage(dispatch, state, chatId, message, sender, senderName, img) {
-    if (!state.messages.has(chatId)) {
+    if (!state.messages.has(chatId) && !state.fullChats.includes(state.currentChat)) {
         try {
             let message = await getMessage(chatId, '0');
             if (message.data.length !== 0) {
@@ -22,9 +22,11 @@ export default async function addNewMessage(dispatch, state, chatId, message, se
                 dispatch(addFullChat(state.currentChat));
             }
         }
-    } else {
-        dispatch(updateMessage(chatId, message, sender, img));
     }
+
+    console.log(chatId, message, sender, img)
+
+    dispatch(updateMessage(chatId, message, sender, img));
 
     if (sender === state.user.username) {
         dispatch(updateLast(chatId, senderName, sender, message, img));

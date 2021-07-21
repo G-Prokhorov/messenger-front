@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {setMessage, updateMessage} from "../../store/actions/message_A";
 import {useDispatch, useSelector} from "react-redux";
-import {newMessageAlert} from "../../store/actions/alertMessage_A";
-import {updateLast} from "../../store/actions/chats_A";
 import axios from "axios";
 import serverUrl from "../../serverUrl";
 import addNewMessage from "../../addNewMessage";
@@ -59,9 +56,9 @@ export default function InputChat(props) {
         setText(event.target.value);
     }
 
-    const handleKeyPress = (event) => {
+    const handleKeyPress = async (event) => {
         if (event.key === "Enter") {
-            handleClick();
+            await handleClick();
         }
     }
 

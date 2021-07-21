@@ -8,6 +8,9 @@ export default function message_R(state = initialState, action) {
             return state.set(action.key, action.messages);
         case UPDATE_MESSAGE:
             let old = state.get(action.key);
+            if (!old) {
+                old = [];
+            }
             return state.set(action.key, [...old, {
                 message: action.message,
                 img: action.img,
