@@ -16,8 +16,6 @@ export default function Settings() {
     const show = useSelector(state => state.settings);
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
-    const [send, setSend] = useState(false);
-    const [next, setNext] = useState(false);
     const [info, setInfo] = useState({
         name: "",
         previous: "",
