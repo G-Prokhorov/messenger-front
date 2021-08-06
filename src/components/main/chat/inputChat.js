@@ -29,7 +29,7 @@ export default function InputChat(props) {
         });
         (async function () {
             try {
-                await axios.post(`${serverUrl}/sendPhoto`, data, {
+                await axios.post(`${serverUrl}/message/sendPhoto`, data, {
                     withCredentials: true,
                 });
                 let current = state.currentChat;

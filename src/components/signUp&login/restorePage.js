@@ -54,7 +54,7 @@ export default function RestorePage() {
 
     const handleSubmit = async () => {
         try {
-            await axios.patch(`${serverUrl}/restorePassword`, {
+            await axios.patch(`${serverUrl}/settings/restorePassword`, {
                 email: info.email,
                 password: info.password,
                 confirm: info.confirm,
@@ -90,7 +90,7 @@ export default function RestorePage() {
     const restoreCode = async () => {
         try {
             setSend(true);
-            await axios.post(`${serverUrl}/sendCodeEmail/restore`, {
+            await axios.post(`${serverUrl}/auth/sendCodeEmail/restore`, {
                 email: info.email,
             });
             goNext();

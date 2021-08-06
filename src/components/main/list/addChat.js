@@ -25,7 +25,7 @@ export default function AddChat() {
     const handleSubmit = async () => {
         handleClick();
         try {
-            let res = await axios.put(`${serverUrl}/createChat`, {
+            let res = await axios.post(`${serverUrl}/chat`, {
                 users: [text]
             }, {
                 withCredentials: true,

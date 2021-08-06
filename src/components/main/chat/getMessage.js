@@ -3,7 +3,7 @@ import {setMessage} from "../../store/actions/message_A";
 import serverUrl from "../../serverUrl";
 
 export default async function getMessage(currentChat, start, limit = 25) {
-    return await axios.post(`${serverUrl}/getMessage`, {
+    return await axios.post(`${serverUrl}/message`, {
         chatId: currentChat,
         start: start,
         limit: limit,

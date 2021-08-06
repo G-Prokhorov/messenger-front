@@ -78,7 +78,7 @@ export default function Register() {
 
     const handleSubmit = async () => {
         try {
-            let result = await axios.post(`${serverUrl}/register`, {
+            let result = await axios.post(`${serverUrl}/auth/register`, {
                 username: data.username,
                 password: data.password,
                 confirm: data.confirm,
@@ -140,7 +140,7 @@ export default function Register() {
 
     const sendCode = async () => {
         try {
-            await axios.post(`${serverUrl}/sendCodeEmail/register`, {
+            await axios.post(`${serverUrl}/auth/sendCodeEmail/register`, {
                 email: data.email,
             });
         } catch (e) {

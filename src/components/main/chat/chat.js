@@ -96,7 +96,7 @@ export default function Chat() {
         const interval = setInterval(async () => {
             if (countRead !== 0) {
                 try {
-                    await axios.patch(`${serverUrl}/markRead`, {
+                    await axios.patch(`${serverUrl}/message`, {
                         chatId: state.currentChat,
                         value: (-1) * countRead,
                     }, {
@@ -210,7 +210,7 @@ export default function Chat() {
                 }
             } else if (chatInfo.numberOfUnread !== 0 && div.offsetHeight >=  div.scrollHeight) {
                 dispatch(updateNumberUnread(state.currentChat, chatInfo.numberOfUnread))
-                await axios.patch(`${serverUrl}/markRead`, {
+                await axios.patch(`${serverUrl}/message`, {
                     chatId: state.currentChat,
                     value: (-1) * chatInfo.numberOfUnread,
                 }, {

@@ -49,7 +49,7 @@ export default function Settings() {
 
     const changePassword = async () => {
         try {
-            await axios.patch(`${serverUrl}/changePassword`, {
+            await axios.patch(`${serverUrl}/settings/changePassword`, {
                 oldPass: info.previous,
                 password: info.password,
                 confirm: info.confirm,
