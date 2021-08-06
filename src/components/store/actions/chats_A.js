@@ -42,7 +42,7 @@ export function updateLastAndNum(chatId, name, username, message, num, img = fal
 
 export function asyncSetChats() {
     return async function (dispatch) {
-        let chats = await axios.get(`${serverUrl}/chat/getChat`, {
+        let chats = await axios.get(`${serverUrl}/chat`, {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
