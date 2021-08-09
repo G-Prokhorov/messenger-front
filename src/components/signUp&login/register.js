@@ -140,7 +140,7 @@ export default function Register() {
 
     const sendCode = async () => {
         try {
-            await axios.post(`${serverUrl}/auth/sendCodeEmail/register`, {
+            await axios.post(`${serverUrl}/auth/sendCode/register`, {
                 email: data.email,
             });
         } catch (e) {

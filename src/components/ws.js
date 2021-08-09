@@ -3,7 +3,7 @@ import {addChat, updateLast, updateLastAndNum} from "./store/actions/chats_A";
 import addNewMessage from "./addNewMessage";
 
 export default async function connect(setSocket) {
-    let webSocket = new WebSocket("ws://localhost:5055");
+    let webSocket = new WebSocket("ws://localhost:8080/ws");
     let timeOut;
     let first = true;
     webSocket.onmessage = async (event) => {

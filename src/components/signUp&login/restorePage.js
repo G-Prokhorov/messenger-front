@@ -90,7 +90,7 @@ export default function RestorePage() {
     const restoreCode = async () => {
         try {
             setSend(true);
-            await axios.post(`${serverUrl}/auth/sendCodeEmail/restore`, {
+            await axios.post(`${serverUrl}/auth/sendCode/restore`, {
                 email: info.email,
             });
             goNext();
